@@ -1,0 +1,112 @@
+MESSAGE:
+
+An example geometry for MCNP - An array of various objects
+C
+C This is a comment $ and this is an in-line comment
+C
+C This file describes a simple geometry only description for MCNP exercises at the University of Birmingham
+C Written by T W Leadbeater, 2013
+C
+C A number of surface boundary conditions are described in the SURFACE CARDS block of code
+C These describe simple boundary layers for the geometry to be investigated
+C
+C Volumes are defined by the relation between different surfaces in the CELL CARDS block of code
+C Cells are defined in relation to surfaces and are given material properties from the MATERIAL CARDS block
+C The cells define the physical system, and provide an entry point for the materials cross-section libraries
+C
+C Materials are defined in the MATERIAL CARDS block of code
+C they follow the ZZAAA.id format described in the lab manual and reference documentation
+C ZZ shows the proton number of the material
+C AAA gives the mass number (isotope), if this is left as 000 this defines a natural isotopic content
+C .id tells the code which cross section library to use
+C
+C
+C
+C    CELL CARDS
+C    cell card format is [id number] [material number] [material density] [surface(s) relationship]
+C
+1    2 -11.4 -1                  $ sphere
+2    3  -2.0 2 -3 4 -5 6 -7      $ cuboid
+3    2 -11.4 -8 9 -10            $ cylinder
+4    4 -7.87 -11                 $ torus
+5    5 -8.65 -12 13              $ cone
+6    6 -1.325 -14
+C
+98   1 -0.00012 #1 #2 #3 #4 #5 #6 -99  $ universe cell inside surface 99, filled with material 1 (air)
+99   0           99             $ void cell (material 0) outside surface 99
+C
+C
+C
+C
+C blank line delimiter
+
+C
+C    SURFACE CARDS
+C    surface card format is [id number] [surface type] [surface parameter(s)]
+C
+C for the sphere:
+1     SZ   -75 10.0
+C
+C for the cuboid:
+2     PX   -10.0
+3     PX   10.0
+4     PY   -10.0
+5     PY   10.0
+6     PZ   -30.0
+7     PZ   -10.0
+C
+C for the cylinder:
+8     C/Y   0.0 70.0 15.0
+9     PY   -15.0
+10    PY    15.0
+C
+C for the torus
+11    TZ   0 0 0 50.0 50.0 25.0
+C
+C for the cone
+12    KZ   20 1 -1
+13    PZ   10 
+C
+C for the easter egg
+14    SQ 20 10 10 0 0 0 -500 10 10 30
+C
+C for the void
+99    SO   100.0                $ sphere centred on origin, radius = 100.0 cm
+C
+C
+C
+C
+C blank line delimiter
+
+C
+C    CELL IMPORTANCE MAP    
+C    defines the importance of each cell in the order it appears in the file
+C   
+IMP:P 1 1 1 1 1 1 1 0                      
+C
+C
+C
+C    MATERIAL CARDS
+C    material card format is M[id number] [ZZ][AAA][.id] [concentration] 
+C
+M1   7014 0.80 8016 0.20       $ air, 80% nitrogen, 20% oxygen by mass
+M2   82000 1.0                 $ natural lead
+M3   6000 1.0                  $ carbon
+M4   26000 1.0                 $ iron
+M5   48000 1.0                 $ cadmium
+M6   6000 7 1000 8 7014 4 8016 2 $ chocolate
+C
+C
+C
+C
+C    *** Here we define the problem physics ***
+C
+C
+C    MODE CARD
+MODE P                         $ sets simulation to run photons only
+C
+C    SOURCE DEFINITION
+SDEF POS=0.0 0.0 0.0 ERG=1.0   $ 1MeV photon source centred on origin
+C
+C    NUMBER OF PARTICLE HISTORIES TO RUN
+NPS  40000
