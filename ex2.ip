@@ -1,0 +1,52 @@
+MESSAGE:
+
+Empty geometry for MCNP - A large sphere used to define problem boundary
+C
+C
+C
+C
+C    *** Here we define the problem geometry and materials ***
+C
+C   
+C    CELL CARDS
+C
+C    Cell label 98, filled with material 1, 0.00012 g/cc as mass, inside surface 99:
+98   1 -0.00012 -99             $ universe cell inside surface 99, filled with material 1 (air)
+99   0           99             $ void cell (material 0) outside surface 99
+C
+C
+C
+
+C    SURFACE CARDS
+1    S    10.0
+99   SO   100.0                $ sphere centred on origin, radius = 100.0 cm
+C
+C
+C
+
+C    CELL IMPORTANCE MAP       $ lists importance of photons in ascending cell order
+IMP:P 1 0                      $ Cell 98 has importance 1, cell 99 (void) importance 0     
+C
+C
+C
+C    MATERIAL CARDS
+M1   7014 0.80 8016 0.20       $ air, 80% nitrogen, 20% oxygen by mass
+C
+C
+C
+C
+C    *** Here we define the problem physics ***
+C
+C
+C    MODE CARD
+MODE P                         $ sets simulation to run photons only
+C
+C    SOURCE DEFINITION
+SDEF POS=0.0 0.0 0.0 ERG=1.0   $ 1MeV photon source centred on origin
+C
+C    TALLY CARDS
+C $ currently no tallys defined
+C
+C    NUMBER OF PARTICLE HISTORIES TO RUN
+NPS  40000
+

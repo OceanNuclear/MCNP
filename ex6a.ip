@@ -1,0 +1,41 @@
+MESSAGE:
+
+C
+C    CELL CARDS
+1    1 -1      -1 2 -3              $ Water inside bucket
+2    2 -7.92   1 -4 2 -3           $ Steel in bucket cylinder
+3    2 -7.92   -2 5 -4             $ Steel bottom to bucket
+99   0         #1 #2 #3            $ Void outside bucket
+
+C    SURFACE CARDS
+C    Inside of bucket
+1    CZ 9.0                 $ cylinder along Z, radius 9cm
+2    PZ 0.0                 $ bottom of bucket inside
+3    PZ 20.0                $ top of bucket / water construct
+C    Outside of bucket
+4    CZ 9.2                 $ cylindrical outside of bucket, radius 9.2cm
+5    PZ -0.2                $ bottom of bucket
+
+C    MATERIAL CARDS
+M1   1001.42c 0.6667  8016.42c 0.3333   $ Pure water
+M2   26000.42c 0.74 24000.42c 0.18 28000.42c 0.08 $ Stainless steel
+C
+C    MODE CARD
+MODE:N
+IMP:N 1 1 1 0
+C
+C    TALLY CARDS
+C    Flux averaged over outside of shell
+F12:N 4
+C
+C    ENERGY BINS FOR TALLIES
+E0   1e-9 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3 1e-2 1e-1 1e0 1e1
+C
+C    SOURCE DEFINITION
+C    2MeV neutron source, isotropic at origin
+SDEF POS=0.0 0.0 -0.1 ERG=D4
+SP4  -3
+C
+C    Number of histories to run
+NPS  4000
+

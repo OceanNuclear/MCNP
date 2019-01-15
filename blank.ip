@@ -1,0 +1,58 @@
+MESSAGE:
+
+A blank input file with correct formatting for development
+C
+C This is a comment $ and this is an in-line comment
+C
+C This file describes a blank input file for MCNP exercises 
+C This can be modified to develop your own simulation
+C Written by T W Leadbeater, 2014
+C
+C
+C    CELL CARDS
+C
+Remove this line, place first cell card here
+C
+C
+C blank line delimiter
+
+C
+C    SURFACE CARDS
+C
+Remove this line, place first surface card here
+C
+C
+C blank line delimiter
+
+C
+C    CELL IMPORTANCE MAP    
+C
+C Uncomment either photon or neutron importance 
+C (or make your own mixed map)
+C IMP:P 
+C IMP:N
+C
+C
+C
+C    MATERIAL CARDS
+C
+Remove this line, place first material card here
+C
+C
+C
+C
+C    *** Here we define the problem physics ***
+C
+C
+C    MODE CARD
+C Choose either photon (P), neutron (N) or electron (E) mode
+C (or make your own mixed mode)
+MODE P                         
+C
+C    SOURCE DEFINITION
+C Basic point source at the origin
+SDEF POS=0.0 0.0 0.0 ERG=1.0   $ 1MeV photon source centred on origin
+C
+C    NUMBER OF PARTICLE HISTORIES TO RUN
+C Arbitrary number of histories, set to a sensible value
+NPS  9346

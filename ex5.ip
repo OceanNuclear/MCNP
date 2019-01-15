@@ -1,0 +1,53 @@
+MESSAGE:
+
+Simple spherical shell geometry for MCNP
+C    A sphere of pure lead
+C    Source is isotropic 1000keV photons
+C
+C
+C    CELL CARDS
+1    1 -11.4   -1               $ Pb sphere inside 1
+2    1 -11.4    1 -2
+3    1 -11.4    2 -3
+4    1 -11.4    3 -4
+5    1 -11.4    4 -5
+6    1 -11.4    5 -6
+7    1 -11.4    6 -7
+8    0          7               $ void cell outside 1
+
+C    SURFACE CARDS
+1    SO    2.0
+2    SO    4.0
+3    SO    6.0
+4    SO    8.0
+5    SO   10.0
+6    SO   12.0
+7    SO   14.0
+
+C    MODE CARD
+MODE P
+C
+C    Cell photon importances
+IMP:P 1 3 9 27 81 243 729 0
+C
+C    SOURCE DEFINITION
+C    1000keV photon source, isotropic at origin
+SDEF POS=0.0 0.0 0.0  ERG=1.0
+C
+C
+C    TALLY CARDS
+C    Flux average over outside of shell
+F12:P 7
+C
+C    ENERGY BINS FOR TALLIES
+E0   0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+C
+C
+C    MATERIAL CARDS
+M1   82000 1.0                  $ pure lead
+C
+C
+C    Number of histories to run
+NPS  40000
+
+

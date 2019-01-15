@@ -78,7 +78,7 @@ C
 C
 C blank line delimiter
 
-C
+C    
 C    CELL IMPORTANCE MAP    
 C    defines the importance of each cell in the order it appears in the file
 C   
