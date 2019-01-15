@@ -11,8 +11,9 @@ C
 C    CELL CARDS
 C
 C    Cell label 98, filled with material 1, 0.00012 g/cc as mass, inside surface 99:
-98   1 -0.00012 -99             $ universe cell inside surface 99, filled with material 1 (air)
-99   0           99             $ void cell (material 0) outside surface 99
+98   1 -0.00012 +1 -99             $ universe cell inside surface 99, filled with material 1 (air)
+1    1 -2       -1
+99   0          +99             $ void cell (material 0) outside surface 99
 C
 C
 C
