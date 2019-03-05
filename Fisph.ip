@@ -1,0 +1,16 @@
+C simple U sphere
+1    1 -19.2 -1 IMP=1 $ U sphere
+99   0 1 IMP=0 $ grave yard
+
+1    so 10 $ 10cm sphere on origin
+
+Mode n
+IMP:N 1 0
+C Natural Uranium
+M1   92238.42c 0.97 92235.42c 0.03
+C crit cards
+KCODE 1000 0.8 100 1100
+C 1000 neutron per gen, keff guess
+C 0.8, skip 100 gen, run 1000 active gen
+KSRC 0 0 1
+C The output file is named Fisp.out

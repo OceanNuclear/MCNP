@@ -1,0 +1,58 @@
+Title goes here - usually a basic description of the model
+C Comments to explain what the input file represents
+C  usually includes significant details such as who made the model, when it was
+C  last modified and other relevant QA information
+C
+C Description: This is a very basic template MCNP input file
+C Created by: T Leadbeater (unknown date)
+C Last modified by: DA Allen 4/1/19
+C QA Status: it has none
+C
+C ---*---1---------2---------3---------4---------5---------6---------7---------8
+C This is a helpful ruler to indicate the 6th and 80th character positions
+C
+C Start of cell cards
+999 0 999 IMP:P=0       $ graveyard
+C End of cell cards
+
+C Start of surface cards
+999 SO 500
+C End of surface cards
+
+C Start of data cards
+MODE P
+NPS 5000
+C
+C Source: Isotropic point source of monoenergectic photons
+SDEF pos= 0 1 0  erg=1.0 par=p
+C
+C Materials
+C all compositons from PNNL compendium of material composition
+C for radiation transport 
+C   Iron (atom fractions)
+M1   26000 1.0
+C   Water (atom fractions)
+M2   1001  0.666657 $ Hydrogen
+     8016  0.333343 $ Oxygen
+C   Polyethylene (atom fractions, H & C)
+M3   1001 0.666662  6000 0.333338
+C   Concrete (weight fractions)
+M4   1000  -0.01      $ Hydrogen
+     6000  -0.001     $ Carbon
+     8000  -0.529107  $ Oxygen
+     11000 -0.016     $ Sodium
+     12000 -0.002     $ Magnesium
+     13000 -0.033872  $ Aluminium
+     14000 -0.337021  $ Silicon
+     19000 -0.013     $ Potassium
+     20000 -0.044     $ Calcium
+     26000 -0.014     $ Iron
+C 
+C Tallies
+FC2  Surface photon flux tally over surface 999
+F2:P 999
+C
+C ---*---1---------2---------3---------4---------5---------6---------7---------8
+C Here's that ruler again
+C
+C End of data cards

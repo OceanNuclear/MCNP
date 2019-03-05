@@ -1,0 +1,115 @@
+MESSAGE:
+
+First attempt 2019-01-29 14:19:41 to create an MCNP, to create a waste drum.
+C cells_________lower/upper bounds;importance_____________________________| $ block 1
+1    1 -0.87     -1 2 -3           imp:p=1 $ Inside the drum; $ syntax: [cell] 1, [material] 1, [rho=]-0.87, [within surfaces] (-1,2,-3) $-ve to refer to masses instead of atomic fractions (+ve) $Declaring tallying importance at the same time
+2    2 -2.30    (-4 5 -6) (1:-2:3) imp:p=1 $ -(1 and 2)==(-1or-2); i.e. -(1 2)==(-1:-2) $ Concrete
+3    3 -7.92    (-7 8 -9) (4:-5:6) imp:p=1 $ the metal drum
+4    4 -0.001205 -10 11 12 (7:-8:9) imp:p=1 $ Air space
+5    0           10                imp:p=0 $ graveyard lol; density = 0 so doesn't matter its composition.
+6    5 -11.3    -11                imp:p=1 $ Pb shielding
+7    4 -0.001205 -12               imp:p=1 $ Air space of interest (test detector volume)
+
+C \n + surfaces___________________________________________________________| $ block 2
+1    CZ   15.0 $ Innermost cylinder/waste
+2    PZ  -25.0
+3    PZ   25.0
+4    CZ   20.0 $ Concrete shielding
+5    PZ  -30.0
+6    PZ   30.0
+7    CZ   20.3 $ Metal drum
+8    PZ  -30.3
+9    PZ   30.3
+10   SO  200.0 $ Outer sphere of 2 m radius
+11   RPP  30   32.5 -40 40   -40 40 $ Additional shield of Pb
+12   SX  100   10                   $ Tally sphere (will still be filled with air)
+
+C \n + data cards_________________________________________________________| $ block 3
+C materials________________________________________________________________
+M1   12000 1.0      $ Magnox waste (Mg cladding) $ Syntax: ZMMM(atomic-number/mass), relative fraction (before normalization)
+M2    1000 -0.022100 $ H $Concrete
+      6000 -0.002484 $ C 
+      8000 -0.574930 $ O 
+     11000 -0.015208 $ Na
+     12000 -0.001266 $ Mg
+     13000 -0.019953 $ Al
+     14000 -0.304627 $ Si
+     19000 -0.010045 $ K 
+     20000 -0.042951 $ Ca
+     26000 -0.006435 $ Fe
+M3   24000 -0.190    $ 304 SS:Cr
+     25000 -0.020    $ Mn
+     26000 -0.695    $ Fe
+     28000 -0.095    $ Ni
+M4    6000 0.000151 $ C
+      7000 0.784437 $ N
+      8000 0.210750 $ O
+     18000 0.004671 $ Ar
+M5   82000 1.000000 $ Pb
+C modes___________________________________________________________________
+Mode P
+C cutoffs_________________________________________________________________
+C NPS  5000 $ Commented away because I want it to run x minutes straight only without upper limit of number of particles
+CTME 1
+C Source__________________________________________________________________
+C    Isotropic Co-60 source uniformly distributed throughout volume of the magnox waste
+SDEF POS=0.0 0.0 0.0 AXS=0 0 1 RAD=D1 EXT=D2 ERG=D3 CEL=1 PAR=2 $a cylinder on the z axis, photon source
+C    lmfao each (SIx SPx) card pair is just a simple sampling distribution description; so they have the same syntax whether it's an E dist or spatial dist :) 
+C    Spatial dist., D1 and D2.
+SI1    0.0 14.99999  $ Radial distribution (D1, 0<r<15) is uniform,
+SP1  -21 1       $ Achieved by power law distribution (f=-21) of r^1.
+SI2  -25.0 25.0  $ Vertical distribution (EXT=D2, -25<z<25) is uniform,
+SP2   0  1.0     $ Uniform in height (0 dependence, intensity of 1 after normalization).
+C    Energy dist.
+SI3  L 0.34714  0.8261   1.17323 1.33249  2.15857  $ Co-60 emission energies in MeV and stuff. MeV(JEFF 3.3.1)
+SP3    0.000075 0.000076 0.9985  0.999826 0.000012 $ Probabilities
+C   Dose Tallies____________________________________________________________
+C   FC12 Base, lid, and both's average surface dose.
+C   FC22 Wall average dose.
+C   FC32 surface dose at 2 m distance from the origin (centre of drum).
+C    --break--
+C   FC42 Base, lid, and both's average surface flux.
+C   FC52 Wall average flux and dose.
+C   FC62 Surface flux at 2 m distance from the origin (centre of drum).
+FC5 Point detector flux
+FC4 Flux calculated using track length in sphere 12
+F12:P (8 9) 7 10 T $ Does tallies
+F22:P (8 9) 7 10 T $ Normal tallies
+F5:P 100 0 0 10    $ Flux calculated by making a point detector on surface 12 exactly
+F4:P 7             $ Flux through cell 7, calculated by track length
+
+C Energies________________________________________________________________
+E0   0.05 0.1 0.5 1.0 2.0 5.0
+C Dose Energy and Function conversion_____________________________________
+#    DE12   DF12
+     0.01  2.78e-6
+     0.015 1.11e-6
+     0.02  5.88e-7
+     0.03  2.56e-7
+     0.04  1.56e-7
+     0.05  1.20e-7
+     0.06  1.11e-7
+     0.08  1.20e-7
+     0.1   1.47e-7
+     0.15  2.38e-7
+     0.2   3.45e-7
+     0.3   5.56e-7
+     0.4   7.69e-7
+     0.5   9.09e-7
+     0.6   1.14e-6
+     0.8   1.47e-6
+     1.0   1.79e-6
+     1.5   2.44e-6
+     2.0   3.03e-6
+     3.0   4.00e-6
+     5.0   5.56e-6
+     6.0   6.25e-6
+     8.0   7.69e-6
+     10.0  9.09e-6
+C    DE4 0.01 100
+C    DF4 0.01 100
+C Other commands__________________________________________________________
+PRINT 110
+C
+C in output file: "words"?
+C Marking: Commenting?

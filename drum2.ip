@@ -1,0 +1,117 @@
+Class Demonstration Exercise-Photon source inside a shielded drum. Dose Rate.
+C
+C Created by:       Dennis Allen 24/1/19
+C Last modified by: Dennis Allen 24/1/19
+C
+C ---*---1---------2---------3---------4---------5---------6---------7---------8
+C    CELL CARDS
+1    1 -0.87 -1 2 -3                   imp:p=1   $ Source volume (reduced density Magnox)
+2    2 -2.3  -10  11 -12 (1:-2:3)      imp:p=1   $ Concrete shield
+3    3 -7.92 -20  21 -22 (10:-11:12)   imp:p=1   $ Stainless steel drum
+4    4 -0.001205 -100    (20:-21:22)   imp:p=1   $ Air around shield
+100  0            100                  imp:p=0   $ External void
+
+C    SURFACE CARDS
+C    Source container - 30cm diameter cylinder of height 50cm
+1    CZ   15.0
+2    PZ  -25.0
+3    PZ   25.0
+C    Shield - cylinder surrounding source, wall thicknesss=50mm
+10   CZ   20.0
+11   PZ  -30.0
+12   PZ   30.0
+C    Drum walls - cylinder of thickness 3mm
+20   CZ   20.3
+21   PZ  -30.3
+22   PZ   30.3
+C    Boundary of the defined geometry
+100  SO   200.0
+
+C    DATA CARDS
+MODE P
+C    MATERIAL CARDS
+M1   12000 1.0                 $ Magnox (apporximated as pure Mg)
+C
+M2   1000  -0.022100 $ H       $ Ordinary concrete (PNNL 158070 definition)
+     6000  -0.002484 $ C
+     8000  -0.574930 $ O
+     11000 -0.015208 $ Na
+     12000 -0.001266 $ Mg
+     13000 -0.019953 $ Al
+     14000 -0.304627 $ Si
+     19000 -0.019953 $ K
+     20000 -0.042951 $ Ca
+     26000 -0.006435 $ Fe
+C
+M3   24000 -0.190 $ Cr         $ Stainless steel (304, PNNL 158070 definition)
+     25000 -0.020 $ Mn
+     26000 -0.695 $ Fe
+     28000 -0.095 $ Ni
+C
+M4   6000  0.000151 $ C        $ Dry air (sea level, PNNL 158070 definition)
+     7000  0.784437 $ N
+     8000  0.210750 $ O
+     18000 0.004671 $ Ar
+C
+C    SOURCE DEFINITION
+C    Isotropic Co-60 source uniformly distributed throughout volume of Magnox
+C    Cylinder along z-axis: diameter=30cm, length=50cm, centred on origin
+SDEF POS=0.0 0.0 0.0 AXS=0 0 1 RAD=D1 EXT=D2 ERG=D3 CEL=1
+SI1  0.0 14.9999
+SP1  -21 1                     $ Uniform in radius
+SI2  -24.9999 24.9999
+SP2   0       1.0              $ Uniform in height
+SI3  L 0.34714  0.8261   1.17323 1.33249  2.15857 $ Co-60 emission lines (JEFF 3.3.1)
+SP3    0.000075 0.000076 0.9985  0.999826 0.000012
+C
+C    TALLY CARDS
+FC12 Dose rate on the top of the drum
+F12:P 22
+C
+FC22 Dose rate on the base of the drum
+F22:P 21
+C
+FC32 Dose rate on the top and base of the drum
+F32:P (21 22)
+C
+FC42 Dose rate on the side of the drum
+F42:P 20
+C
+FC52 Average dose rate at 2m from sentre of drum
+F52:P 100
+C
+E0   0.05 0.1 0.5 1.0 2.0 5.0  $ Photon energy bins
+C
+C    Photon fluence-to-dose conversion factors - ICRP-21 (rem/hr)/(p/cm2/s)
+C    Taken from Appendix H of the MCNP 5 Manual
+#    DE0   DF0
+     0.01  2.78e-6
+     0.015 1.11e-6
+     0.02  5.88e-7
+     0.03  2.56e-7
+     0.04  1.56e-7
+     0.05  1.20e-7
+     0.06  1.11e-7
+     0.08  1.20e-7
+     0.1   1.47e-7
+     0.15  2.38e-7
+     0.2   3.45e-7
+     0.3   5.56e-7
+     0.4   7.69e-7
+     0.5   9.09e-7
+     0.6   1.14e-6
+     0.8   1.47e-6
+     1.0   1.79e-6
+     1.5   2.44e-6
+     2.0   3.03e-6
+     3.0   4.00e-6
+     5.0   5.56e-6
+     6.0   6.25e-6
+     8.0   7.69e-6
+     10.0  9.09e-6
+C
+C    source particle and time limits
+PRINT
+NPS  1e8
+CTME 1.0
+C ---*---1---------2---------3---------4---------5---------6---------7---------8
