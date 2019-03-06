@@ -1,0 +1,30 @@
+Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment
+C Created by Ocean Wong (Hoi Yeung Wong)
+C Institution: University of Birmingham
+C Course: MSc PTNR
+C Student ID: 1625143
+C Created      : 2019-03-06
+C Last modified: 2019-03-06
+C ____Cells and importance ____
+1 
+
+C ____ Surface definitions ____
+1 RPP  -5.0 5.0 -10.0 10.0 -9.80 9.00 $ Volume of water
+2 RPP  -5.2 5.2 -10.2 10.2 -10.0 10.0 $ Stainless steel tank itself
+3 RPP  -5.0 5.0 -10.0 10.0 9.000 10.0 $ void above the water
+C May have to rearrange geom. if there are plane conflict warning messages.
+C i.e. Just the outside of the stainless steel can be defined by RPP;
+C everything other internal planes has to be done in good ol' fashion way.
+
+C ____Materials definitions____
+C Stainless steel
+M2    1000 -0.022100 $ H $Concrete
+      6000 -0.002484 $ C 
+      8000 -0.574930 $ O 
+     11000 -0.015208 $ Na
+     12000 -0.001266 $ Mg
+     13000 -0.019953 $ Al
+     14000 -0.304627 $ Si
+     19000 -0.010045 $ K 
+     20000 -0.042951 $ Ca
+     26000 -0.006435 $ Fe

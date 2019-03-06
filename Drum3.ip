@@ -8,8 +8,22 @@ C cells_________lower/upper bounds;importance_____________________________| $ bl
 4    4 -0.001205 -10 11 12 (7:-8:9) imp:p=1 $ Air space
 5    0            10               imp:p=0 $ graveyard lol; density = 0 so doesn't matter its composition.
 C
-6    5 -11.3     -11               imp:p=1 $ Pb shielding
+6    5 -11.3     -11 -31           imp:p=1 $ Pb shielding
 7    4 -0.001205 -12               imp:p=1 $ Air space of interest (test detector volume)
+31   5 -11.3     -11 31 -32        imp:p=2
+32   5 -11.3     -11 32 -33        imp:p=4
+33   5 -11.3     -11 33 -34        imp:p=8
+34   5 -11.3     -11 34 -35        imp:p=16
+35   5 -11.3     -11 35 -36        imp:p=32
+36   5 -11.3     -11 36 -37        imp:p=64
+37   5 -11.3     -11 37 -38        imp:p=128
+38   5 -11.3     -11 38 -39        imp:p=256
+39   5 -11.3     -11 39 -40        imp:p=512
+40   5 -11.3     -11 40 -41        imp:p=1024
+41   5 -11.3     -11 41 -42        imp:p=2048
+42   5 -11.3     -11 42 -43        imp:p=4096
+43   5 -11.3     -11 43 -44        imp:p=8192
+44   5 -11.3     -11 44            imp:p=16384
 
 C \n + surfaces___________________________________________________________| $ block 2
 1    CZ   15.0 $ Innermost cylinder/waste
@@ -24,20 +38,20 @@ C \n + surfaces___________________________________________________________| $ bl
 10   SO  200.0 $ Outer sphere of 2 m radius
 11   RPP  30   45 -40 40   -40 40 $ Additional shield of Pb
 12   SX  100   10                   $ Tally sphere (will still be filled with air)
-C 20   PZ   31
-C 21   PZ   32
-C 22   PZ   33
-C 23   PZ   34
-C 24   PZ   35
-C 25   PZ   36
-C 26   PZ   37
-C 27   PZ   38
-C 28   PZ   39
-C 29   PZ   40
-C 30   PZ   41
-C 31   PZ   42
-C 32   PZ   43
-C 33   PZ   44
+31   PZ   31
+32   PZ   32
+33   PZ   33
+34   PZ   34
+35   PZ   35
+36   PZ   36
+37   PZ   37
+38   PZ   38
+39   PZ   39
+40   PZ   40
+41   PZ   41
+42   PZ   42
+43   PZ   43
+44   PZ   44
 
 C \n + data cards_________________________________________________________| $ block 3
 C materials________________________________________________________________
@@ -89,11 +103,10 @@ C   FC62 Surface flux at 2 m distance from the origin (centre of drum).
 FC5 Point detector flux
 FC4 Flux calculated using track length in sphere 12
 F12:P (8 9) 7 10 T $ Does tallies
-C Stat test will only be performed on the default surface, e.g. surface (8 9) for the 1st statistical test; surface .
-C TF12 6J 7          $ Modify the statistical test for tally 12.
 F22:P (8 9) 7 10 T $ Normal tallies
 F5:P 100 0 0 10    $ Flux calculated by making a point detector on surface 12 exactly
 F4:P 7             $ Flux through cell 7, calculated by track length
+
 C Energies________________________________________________________________
 E0   0.05 0.1 0.5 1.0 2.0 5.0
 C Dose Energy and Function conversion_____________________________________
