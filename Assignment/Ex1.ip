@@ -6,7 +6,10 @@ C Student ID: 1625143
 C Created      : 2019-03-06
 C Last modified: 2019-03-06
 C ____Cells and importance ____
-1 
+1 $ Stainless steel can
+2 $ Water
+3 $ Void above water inside can, non-zero importance to allow neutrons
+C neutron is allowed to be transported through region 3 so that there isn't any case of 
 
 C ____ Surface definitions ____
 1 RPP  -5.0 5.0 -10.0 10.0 -9.80 9.00 $ Volume of water
@@ -18,13 +21,9 @@ C everything other internal planes has to be done in good ol' fashion way.
 
 C ____Materials definitions____
 C Stainless steel
-M2    1000 -0.022100 $ H $Concrete
-      6000 -0.002484 $ C 
-      8000 -0.574930 $ O 
-     11000 -0.015208 $ Na
-     12000 -0.001266 $ Mg
-     13000 -0.019953 $ Al
-     14000 -0.304627 $ Si
-     19000 -0.010045 $ K 
-     20000 -0.042951 $ Ca
-     26000 -0.006435 $ Fe
+M1    1001.60c -0.11190 $ H-1 and mass fraction
+      8016.60c -0.88810 $ O-16 and mass fraction
+C stainless steel, data retrieved from the endf60 database.
+M2   24000.42c -0.18000 $ 18% Cr content
+     26000.42c -0.74000 $ 74% Fe
+     28000.42c -0.08000 $ 8% Ni content

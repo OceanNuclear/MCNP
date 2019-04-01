@@ -1,3 +1,4 @@
 1. Make the input file
 2. See the first 50, if they are sensible or not.
 3. 
+2019-03-09 00:19:01 I should start making a tex file, but I'm too tired. I wanted to make all sections' title (including but not limited to: "\section", "\includegraphics{geometry used}", "\subsection{questions}") and then make sure to include two horizontal cross sections, 1 above the water level, 1 below.
