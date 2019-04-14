@@ -5,26 +5,59 @@ C Course: MSc PTNR
 C Student ID: 1625143
 C Created      : 2019-03-06
 C Last modified: 2019-04-14
+C
 C ____Cells and importance ____
-1    1 -1.00 (-1)     imp:n=1 $ Water
-2    2 -7.92 (1 -2 3) imp:n=1 $ Stainless steel can
-3    0       -3       imp:n=1 $ Void above water inside can, non-zero importance to allow neutrons
-4    0        3       imp:n=0 $ Void outside
-C neutron is allowed to be transported through region 3 so that there isn't any case of 
+1    1 -1.00 (11 -12 13 -14 15 -16) imp:n=1 $ Water
+2    2 -7.92 (21 -22 23 -24 25 -26) (-11:12:-13:14:-15) imp:n=1 $Tank
+3    0       (11 -12 13 -14 16 -26) imp:n=1 $ void above water
+C imp!=0 to allow neutrons to re-enter the SS can.
+4    0       (-21:22:-23:24:-25:26) imp:n=0 $ Void outside
 
 C ____ Surface definitions ____
-1 RPP  -5.0 5.0 -10.0 10.0 -9.80 9.00 $ Volume of water
-2 RPP  -5.2 5.2 -10.2 10.2 -10.0 10.0 $ Stainless steel tank itself
-3 RPP  -5.0 5.0 -10.0 10.0 9.000 10.0 $ void above the water
-C May have to rearrange geom. if there are plane conflict warning messages.
-C i.e. Just the outside of the stainless steel can be defined by RPP;
-C everything other internal planes has to be done in good ol' fashion way.
+C Wetted surfaces, and free surface of water.
+11   PX  -5.0 $ Long side  (left )
+12   PX   5.0 $ Long side  (right)
+13   PY -10.0 $ Short side (near side)
+14   PY  10.0 $ Short side ( far side)
+15   PZ -9.80 $ Base       ( internal)
+16   PZ  9.00 $ Water level
+C Stainless steel tank exterior surface
+21   PX  -5.2 $ Long side  (left )
+22   PX   5.2 $ Long side  (right)
+23   PY -10.2 $ Short side (near side)
+24   PY  10.2 $ Short side ( far side)
+25   PZ -10.0 $ Base       ( external)
+26   PZ  10.0 $ Top        (of the rims)
 
 C ____Materials definitions____
 C Water
-M1    1001.60c -0.11190 $ H-1 and mass fraction
-      8016.60c -0.88810 $ O-16 and mass fraction
+M1    1001.42c -0.11190 $ H-1  and mass fraction
+      8016.42c -0.88810 $ O-16 and mass fraction
 C stainless steel, data retrieved from the endf60 database.
 M2   24000.42c -0.18000 $ 18% Cr content
      26000.42c -0.74000 $ 74% Fe
-     28000.42c -0.08000 $ 8% Ni content
+     28000.42c -0.08000 $ 08% Ni content
+C
+C ____Mode card____
+C Assume photoneutron production rate is negligible, so ignore photons
+Mode N $ Importances has already been defined above
+C
+C ____Source definitions___
+C Simple point source 2cm above the internal (wetted) base
+SDEF POS=0.0 0.0 -7.8 ERG=D1 PAR=1
+SP1  -3 0.988 2.249 $Watt spectrum with param's for n(thm)+U235
+C SI1 card not required because the Watt spectrum already defined this.
+C
+C ____Tallies____
+E0   1E-9 1E-8 1E-7 1E-6 1E-5 1E-4 1E-3 1E-2 1E-1 1E0 1E1
+FC12  Surface neutron fluxes over the long external vertical sides.
+F12:N (21 22)
+FC22  Surface neutron fluxes over the short external vertical sides.
+F22:N (23 24)
+FC32  Surface neutron fluxes over the external base.
+F32:N 25
+C
+C ____Other control commands____
+PRINT 110 $ Check the location and energies of the first 50 particles
+NPS  10000 $ Run for 5000 particles
+C CTME 1    $ Run for a maximum of 1 minute
