@@ -4,11 +4,12 @@ C Institution: University of Birmingham
 C Course: MSc PTNR
 C Student ID: 1625143
 C Created      : 2019-03-06
-C Last modified: 2019-03-06
+C Last modified: 2019-04-14
 C ____Cells and importance ____
-1 $ Stainless steel can
-2 $ Water
-3 $ Void above water inside can, non-zero importance to allow neutrons
+1    1 -1.00 (-1)     imp:n=1 $ Water
+2    2 -7.92 (1 -2 3) imp:n=1 $ Stainless steel can
+3    0       -3       imp:n=1 $ Void above water inside can, non-zero importance to allow neutrons
+4    0        3       imp:n=0 $ Void outside
 C neutron is allowed to be transported through region 3 so that there isn't any case of 
 
 C ____ Surface definitions ____
@@ -20,7 +21,7 @@ C i.e. Just the outside of the stainless steel can be defined by RPP;
 C everything other internal planes has to be done in good ol' fashion way.
 
 C ____Materials definitions____
-C Stainless steel
+C Water
 M1    1001.60c -0.11190 $ H-1 and mass fraction
       8016.60c -0.88810 $ O-16 and mass fraction
 C stainless steel, data retrieved from the endf60 database.
