@@ -1,4 +1,4 @@
-Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment
+Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment 1
 C Created by Ocean Wong (Hoi Yeung Wong)
 C Institution: University of Birmingham
 C Course: MSc PTNR
@@ -49,7 +49,11 @@ SP1  -3 0.988 2.249 $Watt spectrum with param's for n(thm)+U235
 C SI1 card not required because the Watt spectrum already defined this.
 C
 C ____Tallies____
-E0   1E-9 1E-8 1E-7 1E-6 1E-5 1E-4 1E-3 1E-2 1E-1 1E0 1E1
+E0   1E-9 2.15443469E-9 4.64158883E-9 1E-8 2.15443469E-8 4.64158883E-8
+     1E-7 2.15443469E-7 4.64158883E-7 1E-6 2.15443469E-6 4.64158883E-6
+     1E-5 2.15443469E-5 4.64158883E-5 1E-4 2.15443469E-4 4.64158883E-4
+     1E-3 2.15443469E-3 4.64158883E-3 1E-2 2.15443469E-2 4.64158883E-2
+     1E-1 2.15443469E-1 4.64158883E-1 1E0 2.15443469E0 4.64158883E0 1E1
 FC12  Surface neutron fluxes over the long external vertical sides.
 F12:N (21 22)
 FC22  Surface neutron fluxes over the short external vertical sides.
@@ -58,6 +62,6 @@ FC32  Surface neutron fluxes over the external base.
 F32:N 25
 C
 C ____Other control commands____
-PRINT 110 $ Check the location and energies of the first 50 particles
-NPS  10000 $ Run for 5000 particles
-C CTME 1    $ Run for a maximum of 1 minute
+C PRINT 110 $The source location has been confirmed using this card
+PRINT 160 161 162
+NPS  500000

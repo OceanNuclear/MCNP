@@ -1,0 +1,97 @@
+Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment 3
+C Created by Ocean Wong (Hoi Yeung Wong)
+C Institution: University of Birmingham
+C Course: MSc PTNR
+C Student ID: 1625143
+C Created      : 2019-04-15
+C Last modified: 2019-04-15
+C
+C ____Cells and importance ____
+C Non-fissioning materials
+1    1 -1.00 (11 -12 13 -14 15 -16) (36:(31 32 33 34 35)) imp:n=1 $ Water
+2    2 -7.92 (21 -22 23 -24 25 -26) (-11:12:-13:14:-15) imp:n=1 $ SS Tank
+3    3 -2.30 (41 -42 43 -44 45 -25) imp:n=1 $IMP:N=0.1 $ Concrete floor
+C Fissioning materials
+11   4 -19.2 (15 -36 -31) imp:n=1 $ cylinder (left)
+12   4 -19.2 (15 -36 -32) imp:n=1 $ cylinder (right)
+13   4 -19.2 (15 -36 -33) imp:n=1 $ cylinder (near side)
+14   4 -19.2 (15 -36 -34) imp:n=1 $ cylinder (far side)
+15   4 -19.2 (15 -36 -35) imp:n=1 $ cylinder (center)
+C Voids:inside non-reentrant boundaries has imp:n>0
+21   0 (11 -12 13 -14 16 -26) imp:n=1 $ void above water
+22   0 (41 -42 43 -44 25 -26) (-21:22:-23:24) imp:n=1 $ void above concrete
+C Voids:outside of non-reentrant boundary can have imp:n=0
+23   0 (-41:42:-43:44:-45:26) imp:n=0
+
+C ____ Surface definitions ____
+C Wetted surfaces, and free surface of water.
+11   PX -50.0 $ YZ face (left )
+12   PX  50.0 $ YZ face (right)
+13   PY -50.0 $ XZ face (near side)
+14   PY  50.0 $ XZ face (far side)
+15   PZ -29.8 $ Base    (internal)
+16   PZ  29.0 $ Water level
+C Stainless steel tank exterior surface
+21   PX -50.2 $ YZ face (left )
+22   PX  50.2 $ YZ face (right)
+23   PY -50.2 $ XZ face (near side)
+24   PY  50.2 $ XZ face (far side)
+25   PZ -30.0 $ Base    (enternal)
+26   PZ  30.0 $ Rim 
+C Cylinders of uranium (homogeneous U)
+31   C/Z -20.0   0.0 7.50 $ cylinder (left)
+32   C/Z  20.0   0.0 7.50 $ cylinder (right)
+33   C/Z   0.0 -20.0 7.50 $ cylinder (near side)
+34   C/Z   0.0  20.0 7.50 $ cylinder (far side)
+35   CZ  7.5   $ cylinder (center)
+36   PZ -4.8   $ Top of all cylinders
+C Concrete floor
+41   PX -80.2 $ extend 30cm further than the box in all directions
+42   PX  80.2
+43   PY -80.2
+44   PY  80.2
+45   PZ -59.8 $ 30cm below the depth
+
+C ____Materials definitions____
+C Water
+M1    1001.42c -0.11190 $ H-1  and mass fraction
+      8016.42c -0.88810 $ O-16 and mass fraction
+C stainless steel, data retrieved from the endf60 database.
+M2   24000.42c -0.18000 $ 18% Cr content
+     26000.42c -0.74000 $ 74% Fe
+     28000.42c -0.08000 $ 08% Ni content
+C Concrete
+M3    8016.42c -0.53 $ Oxygen
+     14000.42c -0.34 $ Silicon
+     20000.42c -0.10 $ Calcium
+      1001.42c -0.03  $ Hydrogen
+C Uranium at 20-80 mix
+M4   92235.42c -0.20
+     92238.42c -0.80
+C ____Mode card____
+C Assume photoneutron production rate is negligible, so ignore photons
+Mode N $ Importances has already been defined above
+C ____Source definitions (in criticality mode)___
+C 1000 neutron per gen, k_eff guess = 0.8, skip 100 gen, run 1000 active gen
+KCODE 600 0.8 100 600
+C try CCC later to replace CEL?
+SDEF POS=D1 AXS=0 0 1 RAD=D2 EXT=D3 PAR=1$ using the default Watt spectrum,
+SI1  L -20 0 0  20 0 0  0 -20 0  0 20 0  0 0 0 $ Centres of the 5 cylinders
+SP1  0.2 0.2 0.2 0.2 0.2 $ Assign equal probability of emission
+SI2  0.0 7.499999 $ 1 bit below the boundary of REAL*4::RAD=7.5
+SP2  -21 1         $ uniformly distributed radially (r^1)
+SI3  -12.499999 12.499999    $also 1 bit smaller than the actual boundary
+SP3  0 1           $ uniform vertical distribution
+C Alternatively, envelope all cells and use the rejection method:
+C SDEF X=-27.5 27.5 Y=-27.5 27.5 Z=-29.8 -4.8 CEL=D1
+C SI1  L 11 12 13 14 15 $Reject n.'s that lies outside of defined cells,
+C SP1  0.2 0.2 0.2 0.2 0.2 $ And assign equal src strength to each cell.
+C But this method is inefficient (only 3% of the n.'s will be accepted)
+C ____Tallies____
+E0   1E-9 1E-7 1E-5 1E-3 1E-1
+FC12  Surface neutron fluxes over all sides of the concrete floor block
+F12:N (41 42 43 44)
+FC22  Surface neutron fluxes BELOW the concrete floor, at world's edge
+F22:N 45
+C ____Other control commands____
+PRINT 90 110 126 140 161 162 175 178 $ PRINT 160 170
