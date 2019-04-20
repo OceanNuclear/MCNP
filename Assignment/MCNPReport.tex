@@ -17,6 +17,8 @@ MSc Physics and Technology of Nuclear Reactors	\\
 2019-03-09 										\\
 \end{center}
 \section{Result}
+For the following exercise all parts are created using the ENDL92 library (which is the most recently updated library available), and ran on the phymat server of University of Birmingham School of Physics and Astronomy, which is a Scientific Linux 7.3 (Nitrogen) system with 16 CPU's (Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz) (though it is important to note that only 1 CPU is used at a time because this version of MCNP does not support parallel computing). 
+\\Note that there is no delayed neutron cross section data available in ENDL92 (or any other nuclear databases available on phymat), so the simulation may deviate from reality slightly.
 \subsection{Exercise 1 Simple Neutron Source in a Bucket of Water}
 \subsubsection{Input file}
 Energy cut-off is not applied so that very slow (thermalized) neutrons to interact and let further reactions take place.
@@ -30,7 +32,7 @@ By examining the first 50 particles(using \texttt{PRINT 110}), the source was co
 \\Note from the Watt spectrum above that there is a small but non-zero probability of getting neutrons of very high energy. This leads to some warning messages when the occassional particle scores above the upper limit of the largest tallying bin.
 \\*plot variation of VoV, fom, , as nps increases to 20000\\
 \begin{enumerate}
-	\item These results are not reliable because the statistical checks (\\*insert number of them not passed\\) are not passed, meaning that some reactions are not sampled enough for us to be confidence about the frequencies of their occurance.
+	\item These results are not reliable because the statistical checks (\\*insert number of them not passed) are not passed, meaning that some reactions are not sampled enough for us to be confidence about the frequencies of their occurance.
 	\\Additionally, some bins in the PDF are empty (seen table 161 of tally 22) suggesting that insufficient number of neutrons is sampled to approximate a continuous distribution.
 	\item The total fluences $\Phi$ are simplay calculated by formula $N A \sum_i (\Psi_i)$ 
 		\\where each $\Psi_i$ refers to the flux calculated for the i${}^{th}$ energy bin \emph{per history}.
@@ -42,7 +44,7 @@ By examining the first 50 particles(using \texttt{PRINT 110}), the source was co
 	\\*Copy and modify table above to show their respective means
 	\\*The average standard flux $\phi$ i.e. number of neutrons passing through each unit surface area of interest, and the implication (fewer gets their because of the inverse square law)
 	\\The hardness of neutron spectrum decreases as follows: hardness at base (Tally 32)$>$long side (Tally 12)$>$short side (Tally 22), because distance of them increases in that order.
-	\\More neutrons can penetrate the base at the energy its creation energy without being moderated by the water; therefore the first bin of tally 32is more filled than that of tally 12. 
+	\\More neutrons can penetrate the base at the energy its creation energy without being moderated by the water; therefore the $1^{st}$ bin of tally 32is more filled than that of tally 12. 
 	\\The ratio of neutron flux in the slow/Cadmium region ($<$0.01 MeV) to neutron flux in the resonance regions ($>$0.01MeV) builds up since the latter gets slowed down/captured by the resonance peaks much faster than the rate of consumption of the former, as they travel through the material.
 \end{enumerate}
 Note that the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is below the thermal energy of room temperature; neutrons of these energies are strongly affected by the free gas thermal treatment of the interaction cross sections; additionally due to the large cross section in the thermal region which increases as the neutron slows, very few neutrons of these energies can travel far enough to be counted by these surface flux tallies. Therefore this bin always have the largest relative errors among all bins.
@@ -53,7 +55,8 @@ The tally probability distributions (histograms shown in table 161's) all show r
 \\Even when the spacing of energy groups is trisected in this manner, the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is still the bin that receives the least counts. In a real problem this would've been merged with the $2^{nd}$ bin to form a single, larger bin to tally up all the completely thermalized neutrons, increasing its count so that it converges to a precise enough value in a shorter CPU time; but according to the constraint of the problem, there must be one bin with ${10^{-9}}$ MeV as the upper limit. Therefore the only option left is to increase the number of histories such that the results of this bin converges.
 \\Even after running 500000 histories, the relative error for this bin remains high ($0.2599$, $0.4236$, $0.3681$, for tally 12, 22, and 32, respectively) despite the fact that all other statistical checks were passed and the fom has alreay converged to a stable asymptotic limit.
 
-The number of histories to run is chosen as \\*, empirically shown to give a result that converges (passes all 10 statistical checks) in a reasonable CPU time of * minutes.
+If one does not care for the accuracy of the $1^{st}$ bin, then running 2800000 histories is sufficient, as it passess all statistical test, such as the figure of merit having stablized enough by the 2800000 history, in a reasonable computing time of 1.98 minutes. However, 16000000 histories are required for the convergence of the $1^{st}$ bin, requiring 12.79 minutes of coputing time, which is quite long for a simple problem.
+\\Additionally, the statistics of tally 22 is poor, leading to a fluctuating Figure of Merit being recorded, leading to what appears to be a decreasing trend in FoM the last half of the simulation, missing the fom statistical check. Therefore it is less reliable than the other two (tally 12 and tally 32) tally's statistics.
 
 \subsection{Exercise 3: Criticality}
 \subsubsection{Input file}
@@ -62,20 +65,40 @@ It is easier geometry to define the geometry if a sphere was used to define the 
 \\All components except the concrete floor had the same neutron importance. Neutron importance in concrete started off at 1 but was subsequently reduced to 0.1 such that the simulation runs faster by ignoring particles that enter the concrete, since they will otherwise undergo a lot of collision (each requiring a lot of CPU time) to slow down, without causing multiplication.
 \\If the mean free path to absorption $\lambda_{\text{abs}}$ is known, the dimension of the concrete floor can be chosen to extend from the stainless steel tank by $N\lambda_{\text{abs}}$ where N is some arbitrary threshold factor (e.g. 3).
 \\However only the mean free path to collision for neutron is found on a Cell particle activity table (using \texttt{PRINT 126}). Since concrete is only a weakly neutron-absorbing medium, this cannot be used as the proxy for $\lambda_{\text{abs}}$.
-\\Instead the number of neutrons travelling from the concrete to the void region (where neutron importance = 0) was compared to the number of neutrons entering the concrete. The simulation is considered accurate when the ratio of these two numbers is less than 1\%, i.e. $<$ 1\% of the neutrons entering the concrete were "killed" (by entering the void) before they were absorbed/reflected back towards the tank. The dimension of the concrete block was increased until this ratio is low enough.
-\\It was found the ratio of \underline{neutrons entering the concrete} vs. \underline{travelling from the concrete into void} reached \\* \% when the concrete floor block extends from the tank by \\*cm more in each direction, i.e. when the floor is \\*cm larger than the tank in the +x, -x, +y, and -y directions; and is \\*cm deep in the z-direction.
+\\Instead the fraction of neutrons escaping the concrete block into the void was calculated. This was done by comparing the number of neutrons travelling from the concrete to the void region (where neutron importance = 0) to the neutron population in the concrete. The quantity ``population" instead of ``tracks entering" was used because the latter re-counts particles re-entering the same cell, thus the former is a more accurate measurement of how many distinct neutrons have been present in the concrete cell. The simulation is considered accurate when the ratio of these two numbers is less than 1\%, i.e. $<$ 1\% of the neutrons entering the concrete were "killed" (by entering the void region) instead of being absorbed in the concrete/reflected back towards the tank. The dimension of the concrete block was increased until this ratio is lower than 1\%.
+\\This resulted in a concrete floor block of 160.4cm in the x- and y-directions and 50 cm in the z-direction, resulting in 0.21621209\%  and 0.04494092\% of neutrons escaping through the lateral planes and the horizontal plane (plane separating the concrete block from the void below) respectively. This was used as the final dimension for the concrete block.
 
 \paragraph{Source definition}
-Using \texttt{SDEF}'s default option, a "generic Watt spectrum"(\\* Quote MCNP manaul) of neutron was created.
-\\The neutron source was defined using the position = distribution 1 (\texttt{POS=D1}) option in the \texttt{SDEF} card, where distribution 1 \texttt{SI1 L ...} refers to the centres of all of the cylinders; so that the \texttt{SDEF} card as a whole gives a homogeneous isotropic probability distribution of generating a neutron in all of the Uranium cylinders.
-\\This allowed for very fast convergence of the results, where the $\text{k}_{\text{eff}}$ settled down in less than 10 generations; but to be safe 100 generations were skipped (because it isn't computationally expensive to do so).
-\\There is an alternative method of generating such; (which is similar to using a cookie cutter); but that will cause a lot of particles to be rejected.
+Using the \texttt{KSRC} card a ``generic Watt spectrum"(\\* Quote MCNP manaul p.2-160) of neutrons was created at the center points of each cylinder.
+\\This allowed for very fast convergence of the results, where the $\text{k}_{\text{eff}}$ value settled down to a stable value in less than 10 generations. The $k_{eff}$ estimation started after that.
+\\The alternatives of using an \texttt{SDEF} card with a cookie cutter(\texttt{CCC}) rejection/\texttt{CEL} rejection OR 5 uniform cylindrical sources overlayed onto cell 11-15 (all the uranium cylinder cells) were attempted, but were not applied in the end because it is likely to distribute neutrons close to the non-re-entrant surfaces where they can escape. \\*Quote MCNP p.4-30
+
+\paragraph{Choices of number of cycles}
+3000 particles per cycle were shown to give a $\text{k}_{\text{eff}}$ that converges in 10 cycles; 5000 particles per cycles were shown to give faster convergence of $\text{k}_{\text{eff}}$ value (in $>$ 5 cycles), but further increase in number of particles per cycles to 8000 did not show significant improvemence in speed of convergence. Therefore the number of particles were chosen to be 5000, and the first 10 cycles were skipped (ikz=10).
+At 5000 particles per cycle, the $\text{k}_{\text{eff}}$ value was shown to converge sufficiently by the 500 cycles; further increase in total number of cycles yields deminishing marginal at the cost of increasing computing time, thus only 500 cycles was ran.
+
 \subsubsection{Questions}
 \begin{itemize}
-	\item Examine and report upon the estimate of $k_{\text{eff}}$ with cycle number given in the output.
-	\item Are you confident in the final reported result and its uncertainty? Justify your answer.
+	\item The final $\text{k}_{\text{eff}}$ estimate and its standard deviation is reported in line 4174-4178 of the output file for 20wt.\% enriched Uranium with no Boron addition as follows:
+	
+	``the final estimated combined collision/absorption/track-length keff = 1.01798 with an estimated standard deviation of 0.00046
+
+ 	the estimated 68, 95, \& 99 percent keff confidence intervals are 1.01752 to 1.01843, 1.01707 to 1.01888, and 1.01677 to 1.01918"
+
+ 	The average combined $\text{k}_{\text{eff}}$ was observed to decrease slightly at the beginning, converging onto and the value of 1.01798, and then stablize around this value, with decreasing standard deviation as the simulation progresses.
+
+	Examine and report upon the estimate of \\*$k_{\text{eff}}$ with cycle number given in the output.
+	\item The final results of $\text{k}_{\text{eff}} = 1.01798 \pm 0.00046$ is fairly reliable, considering the following items, as suggested by [\\* Quote p.2-180]:
 	\begin{itemize}
-		\item make sure that the 10 statistical checks pass on all cells
+		\item all cells with fissile isotopes (i.e. all U cylinders) were sampled
+		\item the average combined $\text{k}_{\text{eff}}$ appeared to be varying randomly about the average $\text{k}_{\text{eff}}$ for the average cycles
+		\item no noticable trend was present in the later stage of the average combined $\text{k}_{\text{eff}}$
+		\item the confidence intervals from the batched combined $\text{k}_{\text{eff}}$ does not appear to differ significantly from the final result, meaning there are no cyclic variations
+		\item the Figure of Merit for combined $\text{k}_{\text{eff}}$ is stable.
+	\end{itemize}
+	and lastly,
+	\begin{itemize}
+		\item the lack of delayed neutron cross section library should only make an insignificant difference to the final $k_{\text{eff}}$ because they shouldn't care
 	\end{itemize}
 	\item In addition to Monte Carlo stochastic uncertainties what other uncertainties may need 
 	to be considered in a criticality safety assessment?

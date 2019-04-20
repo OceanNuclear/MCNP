@@ -49,8 +49,15 @@ All the \\*'s in MCNPReport.tex:
 	[ ]Extract the data of how many cycles is needed for convergence, how many cm, 
 	[ ]Create table for fluxes in Ex1
 	[ ]Quote MCNP manual using citethisforme.com
-Find whether the Ex1_500000.out converged or not; if not then how much longer is required.
-Useful to check the material definition using PRINT 40 for the 2nd exercise
+Other writing task in the .tex:
+	[ ]Answer the question IFF in the Analysis and Discussion section
+	[ ]
+	[ ]Answer how much boron is required to keep the keff<0.8; and how certain is that, in the Analysis and Discussion section.
+	[ ]Move everything else into somewhere else.
+	[ ]Create a "Results" section detailing the spectra obtained
+[ ]Find whether the Ex1_500000.out converged or not; if not then how much longer is required.
+[ ]Use a databse with delayed neutron cross-section
+[ ]Find the suitable thickness such that <1%
 ____
 Things to consider:
 Apparently table 161 and 162 has unormalized tally as their abscissa; 161 is simply a (log-x and log-y) histogram of the tallies stored; each tally is stored as its full energy.

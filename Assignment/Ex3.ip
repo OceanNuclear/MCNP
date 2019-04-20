@@ -50,48 +50,28 @@ C Concrete floor
 42   PX  80.2
 43   PY -80.2
 44   PY  80.2
-45   PZ -59.8 $ 30cm below the depth
+45   PZ -80.0 $ 30cm below the depth
 
 C ____Materials definitions____
-C Water
+C Water, boronated
 M1    1001.42c -0.11190 $ H-1  and mass fraction
       8016.42c -0.88810 $ O-16 and mass fraction
-C stainless steel, data retrieved from the endf60 database.
-M2   24000.42c -0.18000 $ 18% Cr content
-     26000.42c -0.74000 $ 74% Fe
-     28000.42c -0.08000 $ 08% Ni content
+      5010.42c -0.003   $ Addition of Boron
+C stainless steel, data retrieved from the endf92 database.
+M2   24000.42c -0.18000 $ 18wt.% Cr
+     26000.42c -0.74000 $ 74wt.% Fe
+     28000.42c -0.08000 $ 8 wt.% Ni
 C Concrete
 M3    8016.42c -0.53 $ Oxygen
      14000.42c -0.34 $ Silicon
      20000.42c -0.10 $ Calcium
-      1001.42c -0.03  $ Hydrogen
+      1001.42c -0.03 $ Hydrogen
 C Uranium at 20-80 mix
-M4   92235.42c -0.20
-     92238.42c -0.80
+M4   92235.42c -0.25
+     92238.42c -0.75
 C ____Mode card____
 C Assume photoneutron production rate is negligible, so ignore photons
 Mode N $ Importances has already been defined above
 C ____Source definitions (in criticality mode)___
-C 1000 neutron per gen, k_eff guess = 0.8, skip 100 gen, run 1000 active gen
-KCODE 600 0.8 100 600
-C try CCC later to replace CEL?
-SDEF POS=D1 AXS=0 0 1 RAD=D2 EXT=D3 PAR=1$ using the default Watt spectrum,
-SI1  L -20 0 0  20 0 0  0 -20 0  0 20 0  0 0 0 $ Centres of the 5 cylinders
-SP1  0.2 0.2 0.2 0.2 0.2 $ Assign equal probability of emission
-SI2  0.0 7.499999 $ 1 bit below the boundary of REAL*4::RAD=7.5
-SP2  -21 1         $ uniformly distributed radially (r^1)
-SI3  -12.499999 12.499999    $also 1 bit smaller than the actual boundary
-SP3  0 1           $ uniform vertical distribution
-C Alternatively, envelope all cells and use the rejection method:
-C SDEF X=-27.5 27.5 Y=-27.5 27.5 Z=-29.8 -4.8 CEL=D1
-C SI1  L 11 12 13 14 15 $Reject n.'s that lies outside of defined cells,
-C SP1  0.2 0.2 0.2 0.2 0.2 $ And assign equal src strength to each cell.
-C But this method is inefficient (only 3% of the n.'s will be accepted)
-C ____Tallies____
-E0   1E-9 1E-7 1E-5 1E-3 1E-1
-FC12  Surface neutron fluxes over all sides of the concrete floor block
-F12:N (41 42 43 44)
-FC22  Surface neutron fluxes BELOW the concrete floor, at world's edge
-F22:N 45
-C ____Other control commands____
-PRINT 90 110 126 140 161 162 175 178 $ PRINT 160 170
+KCODE 5000 1 10 200
+KSRC -20 0 -17.3  20 0 -17.3  0 -20 -17.3  0 20 -17.3  0 0 -17.3

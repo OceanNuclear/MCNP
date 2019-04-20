@@ -1,0 +1,765 @@
+1mcnp     version 4c2   ld=01/20/01                      04/17/19 14:14:58
+ *************************************************************************                 probid =   04/17/19 14:14:58
+ inp=Ex1.ip outp=Ex1.out                                                         
+
+    1-       Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment 1      
+    2-       C Created by Ocean Wong (Hoi Yeung Wong)                                        
+    3-       C Institution: University of Birmingham                                         
+    4-       C Course: MSc PTNR                                                              
+    5-       C Student ID: 1625143                                                           
+    6-       C Created      : 2019-03-06                                                     
+    7-       C Last modified: 2019-04-14                                                     
+    8-       C                                                                               
+    9-       C ____Cells and importance ____                                                 
+   10-       1    1 -1.00 (11 -12 13 -14 15 -16) imp:n=1 $ Water                             
+   11-       2    2 -7.92 (21 -22 23 -24 25 -26) (-11:12:-13:14:-15) imp:n=1 $Tank           
+   12-       3    0       (11 -12 13 -14 16 -26) imp:n=1 $ void above water                  
+   13-       C imp!=0 to allow neutrons to re-enter the SS can.                              
+   14-       4    0       (-21:22:-23:24:-25:26) imp:n=0 $ Void outside                      
+   15-                                                                                       
+   16-       C ____ Surface definitions ____                                                 
+   17-       C Wetted surfaces, and free surface of water.                                   
+   18-       11   PX  -5.0 $ Long side  (left )                                              
+   19-       12   PX   5.0 $ Long side  (right)                                              
+   20-       13   PY -10.0 $ Short side (near side)                                          
+   21-       14   PY  10.0 $ Short side ( far side)                                          
+   22-       15   PZ -9.80 $ Base       ( internal)                                          
+   23-       16   PZ  9.00 $ Water level                                                     
+   24-       C Stainless steel tank exterior surface                                         
+   25-       21   PX  -5.2 $ Long side  (left )                                              
+   26-       22   PX   5.2 $ Long side  (right)                                              
+   27-       23   PY -10.2 $ Short side (near side)                                          
+   28-       24   PY  10.2 $ Short side ( far side)                                          
+   29-       25   PZ -10.0 $ Base       ( external)                                          
+   30-       26   PZ  10.0 $ Top        (of the rims)                                        
+   31-                                                                                       
+   32-       C ____Materials definitions____                                                 
+   33-       C Water                                                                         
+   34-       M1    1001.42c -0.11190 $ H-1  and mass fraction                                
+   35-             8016.42c -0.88810 $ O-16 and mass fraction                                
+   36-       C stainless steel, data retrieved from the endf92 database.                     
+   37-       M2   24000.42c -0.18000 $ 18% Cr content                                        
+   38-            26000.42c -0.74000 $ 74% Fe                                                
+   39-            28000.42c -0.08000 $ 08% Ni content                                        
+   40-       C                                                                               
+   41-       C ____Mode card____                                                             
+   42-       C Assume photoneutron production rate is negligible, so ignore photons          
+   43-       Mode N $ Importances has already been defined above                             
+   44-       C                                                                               
+   45-       C ____Source definitions___                                                     
+   46-       C Simple point source 2cm above the internal (wetted) base                      
+   47-       SDEF POS=0.0 0.0 -7.8 ERG=D1 PAR=1                                              
+   48-       SP1  -3 0.988 2.249 $Watt spectrum with param's for n(thm)+U235                 
+   49-       C SI1 card not required because the Watt spectrum already defined this.         
+   50-       C                                                                               
+   51-       C ____Tallies____                                                               
+   52-       E0   1E-9 2.15443469E-9 4.64158883E-9 1E-8 2.15443469E-8 4.64158883E-8          
+   53-            1E-7 2.15443469E-7 4.64158883E-7 1E-6 2.15443469E-6 4.64158883E-6          
+   54-            1E-5 2.15443469E-5 4.64158883E-5 1E-4 2.15443469E-4 4.64158883E-4          
+   55-            1E-3 2.15443469E-3 4.64158883E-3 1E-2 2.15443469E-2 4.64158883E-2          
+   56-            1E-1 2.15443469E-1 4.64158883E-1 1E0 2.15443469E0 4.64158883E0 1E1         
+   57-       FC12  Surface neutron fluxes over the long external vertical sides.             
+   58-       F12:N (21 22)                                                                   
+   59-       FC22  Surface neutron fluxes over the short external vertical sides.            
+   60-       F22:N (23 24)                                                                   
+   61-       FC32  Surface neutron fluxes over the external base.                            
+   62-       F32:N 25                                                                        
+   63-       C                                                                               
+   64-       C ____Other control commands____                                                
+   65-       C PRINT 110 $The source location has been confirmed using this card             
+   66-       PRINT 160 161 162                                                               
+   67-       NPS  18000000                                                                   
+1cells                                                                                                  print table 60
+
+                      atom        gram                                     neutron                                     
+        cell  mat    density     density     volume       mass     pieces importance                                   
+
+     1     1    1  1.00300E-01 1.00000E+00 3.76000E+03 3.76000E+03     0  1.0000E+00                                   
+     2     2    2  8.62096E-02 7.92000E+00 2.83200E+02 2.24294E+03     0  1.0000E+00                                   
+     3     3    0  0.00000E+00 0.00000E+00 2.00000E+02 0.00000E+00     0  1.0000E+00                                   
+     4     4    0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00     0  0.0000E+00                                   
+
+ total                                     4.24320E+03 6.00294E+03
+
+
+ random number control    0.727343232450560E+14
+
+    minimum source weight = 1.0000E+00    maximum source weight = 1.0000E+00
+1cross-section tables                                                                                   print table 100
+
+     table    length
+
+                        tables from file endl92                                                          
+
+   1001.42c    1396   ENDL library name:  nd920609  MCNP translation:  930914 12:03:33                       920205    
+                     temperature = 2.5860E-08 adjusted to 2.5300E-08
+   8016.42c    5374   ENDL library name:  nd920609  MCNP translation:  930914 12:03:33                       911219    
+                     temperature = 2.5860E-08 adjusted to 2.5300E-08
+  24000.42c    8945   ENDL library name:  nd920609  MCNP translation:  930914 12:03:33                       911219    
+                     temperature = 2.5860E-08 adjusted to 2.5300E-08
+  26000.42c   18461   ENDL library name:  nd920609  MCNP translation:  930914 12:03:33                       911219    
+                     temperature = 2.5860E-08 adjusted to 2.5300E-08
+  28000.42c   25438   ENDL library name:  nd920609  MCNP translation:  930914 12:03:33                       911219    
+                     temperature = 2.5860E-08 adjusted to 2.5300E-08
+
+  total       59614
+ 
+ warning.  neutron energy cutoff is below some cross-section tables.
+ 
+ warning.     5 cross sections modified by free gas thermal treatment.
+
+
+
+
+
+ decimal words of dynamically allocated storage
+
+     general               6570
+     tallies              20688
+     bank                 46724
+     cross sections      119228
+
+     total               181618     =      726472 bytes
+
+     available (mdas)   4000000
+
+ ***********************************************************************************************************************
+ dump no.    1 on file runtpe       nps =         0     coll =              0     ctm =    0.00     nrn =              0
+
+
+         2 warning messages so far.
+ warning.  tally not scored beyond last energy bin.                    
+ nps =      2946     nrn =         1069844     tal =   12     erg = 1.0309E+01      
+ warning.  tally not scored beyond last energy bin.                    
+ nps =      5209     nrn =         1917434     tal =   32     erg = 1.0604E+01      
+ warning.  tally not scored beyond last energy bin.                    
+ nps =     16331     nrn =         5907576     tal =   22     erg = 1.1343E+01      
+1problem summary                                                                                                       
+
+      run terminated when  18000000 particle histories were done.
++                                                                                                     04/17/19 14:27:46
+      Hoi Yeung Wong - Monte Carlo Radiation Transport 2018/19 MCNP Assessment 1           probid =   04/17/19 14:14:58
+0
+ neutron creation    tracks      weight        energy            neutron loss        tracks      weight        energy
+                                 (per source particle)                                           (per source particle)
+
+ source            18000000    1.0000E+00    2.0312E+00          escape            17644155    8.9464E-01    9.5445E-01
+                                                                 energy cutoff            0    0.            0.        
+                                                                 time cutoff              0    0.            0.        
+ weight window            0    0.            0.                  weight window            0    0.            0.        
+ cell importance          0    0.            0.                  cell importance          0    0.            0.        
+ weight cutoff            0    4.7557E-03    1.7638E-10          weight cutoff       355862    4.7521E-03    1.7606E-10
+ energy importance        0    0.            0.                  energy importance        0    0.            0.        
+ dxtran                   0    0.            0.                  dxtran                   0    0.            0.        
+ forced collisions        0    0.            0.                  forced collisions        0    0.            0.        
+ exp. transform           0    0.            0.                  exp. transform           0    0.            0.        
+ upscattering             0    0.            1.1181E-07          downscattering           0    0.            1.0692E+00
+ photonuclear             0    0.            0.                  capture                  0    1.0537E-01    7.5030E-03
+ (n,xn)                  34    1.7322E-06    1.4265E-06          loss to (n,xn)          17    8.6609E-07    1.0565E-05
+ prompt fission           0    0.            0.                  loss to fission          0    0.            0.        
+ delayed fission          0    0.            0.                                                                        
+     total         18000034    1.0048E+00    2.0312E+00              total         18000034    1.0048E+00    2.0312E+00
+
+   number of neutrons banked                      17        average time of (shakes)              cutoffs
+   neutron tracks per source particle     1.0000E+00          escape            1.2426E+03          tco   1.0000E+34
+   neutron collisions per source particle 2.1569E+01          capture           7.1323E+03          eco   0.0000E+00
+   total neutron collisions                388243110          capture or escape 1.8631E+03          wc1  -5.0000E-01
+   net multiplication              1.0000E+00 0.0000          any termination   1.9837E+03          wc2  -2.5000E-01
+
+ computer time so far in this run    25.57 minutes            maximum number ever in bank         1
+ computer time in mcrun              12.78 minutes            bank overflows to backup file       0
+ source particles per minute            1.4079E+06            dynamic storage    181622 words,     726488 bytes.
+ random numbers generated               6489874154            most random numbers used was    11141 in history    36165
+
+ range of sampled source weights = 1.0000E+00 to 1.0000E+00
+1neutron  activity in each cell                                                                         print table 126
+
+                 tracks     population   collisions   collisions     number        flux        average      average
+        cell    entering                               * weight     weighted     weighted   track weight   track mfp
+                                                    (per history)    energy       energy     (relative)      (cm)
+
+     1     1    19511366     18000013    384024799    1.6558E+01   2.8583E-04   7.5244E-01   8.5722E-01   1.7175E+00
+     2     2    19054298     17616812      4218311    1.9404E-01   6.0636E-04   9.4605E-01   8.9827E-01   2.6117E+00
+     3     3      203472       201831            0    0.0000E+00   2.6834E-04   9.0549E-01   7.5435E-01   0.0000E+00
+
+     total      38769136     35818656    388243110    1.6752E+01
+1tally  12        nps = 18000000
++                                    Surface neutron fluxes over the long external vertical sides.             
+           tally type 2    particle flux averaged over a surface.       units   1/cm**2   
+           tally for  neutrons 
+
+           areas   
+                surface:    (21 22)                                                                                
+                         8.16000E+02
+ 
+ surface (21 22)                                                                                                       
+      energy
+    1.0000E-09   4.43569E-08 0.0440
+    2.1544E-09   2.23257E-07 0.0219
+    4.6416E-09   1.15951E-06 0.0096
+    1.0000E-08   5.50604E-06 0.0045
+    2.1544E-08   2.16287E-05 0.0024
+    4.6416E-08   5.73199E-05 0.0015
+    1.0000E-07   7.22975E-05 0.0014
+    2.1544E-07   2.90125E-05 0.0023
+    4.6416E-07   1.05260E-05 0.0043
+    1.0000E-06   1.00273E-05 0.0045
+    2.1544E-06   1.01174E-05 0.0045
+    4.6416E-06   1.03611E-05 0.0045
+    1.0000E-05   1.07513E-05 0.0045
+    2.1544E-05   1.08918E-05 0.0044
+    4.6416E-05   1.11358E-05 0.0044
+    1.0000E-04   1.14020E-05 0.0043
+    2.1544E-04   1.16345E-05 0.0043
+    4.6416E-04   1.19696E-05 0.0042
+    1.0000E-03   1.24838E-05 0.0041
+    2.1544E-03   1.28104E-05 0.0041
+    4.6416E-03   1.33365E-05 0.0040
+    1.0000E-02   1.32177E-05 0.0040
+    2.1544E-02   1.48561E-05 0.0037
+    4.6416E-02   1.69061E-05 0.0036
+    1.0000E-01   2.17024E-05 0.0031
+    2.1544E-01   3.02100E-05 0.0026
+    4.6416E-01   4.29132E-05 0.0022
+    1.0000E+00   7.31485E-05 0.0016
+    2.1544E+00   9.87715E-05 0.0013
+    4.6416E+00   9.59492E-05 0.0012
+    1.0000E+01   2.57545E-05 0.0022
+      total      7.68068E-04 0.0004
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally  12 with nps =  18000000    print table 160
+
+
+ normed average tally per history  = 7.68068E-04          unnormed average tally per history  = 6.26744E-01
+ estimated tally relative error    = 0.0004               estimated variance of the variance  = 0.0000
+ relative error from zero tallies  = 0.0003               relative error from nonzero scores  = 0.0003
+
+ number of nonzero history tallies =     7899656          efficiency for the nonzero tallies  = 0.4389
+ history number of largest  tally  =      186506          largest  unnormalized history tally = 2.89628E+01
+ (largest  tally)/(average tally)  = 4.62116E+01          (largest  tally)/(avg nonzero tally)= 2.02809E+01
+
+ (confidence interval shift)/mean  = 0.0000               shifted confidence interval center  = 7.68069E-04
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            7.68068E-04             7.68070E-04                     0.000003
+      relative error                  4.12434E-04             4.12440E-04                     0.000016
+      variance of the variance        6.16221E-06             6.16312E-06                     0.000148
+      shifted center                  7.68069E-04             7.68069E-04                     0.000000
+      figure of merit                 4.59827E+05             4.59812E+05                    -0.000032
+
+ the estimated inverse power slope of the 201 largest  tallies starting at 1.99552E+01 is 7.1974
+ the empirical history score probability density function appears to be increasing at the largest  history scores: please examine.
+ the large score tail of the empirical history score probability density function appears to have no unsampled regions.
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally  12
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed     random        0.00      yes          yes            0.00      yes         yes            constant    random       7.20
+ passed?        yes          yes      yes          yes             yes      yes         yes               yes        yes         yes
+
+ ===================================================================================================================================
+
+
+
+
+ this tally meets the statistical criteria used to form confidence intervals: check the tally fluctuation chart to verify.
+ the results in other bins associated with this tally may not meet these statistical criteria.
+
+ estimated asymmetric confidence interval(1,2,3 sigma): 7.6775E-04 to 7.6839E-04; 7.6744E-04 to 7.6870E-04; 7.6712E-04 to 7.6902E-04
+ estimated  symmetric confidence interval(1,2,3 sigma): 7.6775E-04 to 7.6839E-04; 7.6743E-04 to 7.6870E-04; 7.6712E-04 to 7.6902E-04
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (1.408E+06)*( 5.715E-01)**2 = (1.408E+06)*(3.266E-01) = 4.598E+05
+1unnormed tally density for tally  12            nonzero tally mean(m) = 1.428E+00   nps =  18000000    print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope= 7.2)
+  tally  number num den log den:d-----------d-----------d------------d-----------d------------d-----------d------------d-----------d
+ 2.51-01     18 1.94-05  -4.713 ************|***********|************|*****      |            |           |            |           |
+ 3.16-01  39163 3.35-02  -1.476 ************|***********|************|***********|************|***********|*********   |           |
+ 3.98-01 112539 7.64-02  -1.117 ************|***********|************|***********|************|***********|************|           |
+ 5.01-01 190391 1.03-01  -0.989 ************|***********|************|***********|************|***********|************|**         |
+ 6.31-01 273747 1.17-01  -0.931 ************|***********|************|***********|************|***********|************|***        |
+ 7.94-01 363636 1.24-01  -0.908 ************|***********|************|***********|************|***********|************|***        |
+ 1.00+00 543771 1.47-01  -0.833 ************|***********|************|***********|************|***********|************|****       |
+ 1.26+00 3.1+06 6.59-01  -0.181 ************|***********|************|***********|************|***********|************|***********|
+ 1.58+00 1.6+06 2.65-01  -0.577 mmmmmmmmmmmm|mmmmmmmmmmm|mmmmmmmmmmmm|mmmmmmmmmmm|mmmmmmmmmmmm|mmmmmmmmmmm|mmmmmmmmmmmm|mmmmmmm    |
+ 2.00+00 822025 1.11-01  -0.954 ************|***********|************|***********|************|***********|************|**         |
+ 2.51+00 426357 4.58-02  -1.339 ************|***********|************|***********|************|***********|**********  |           |
+ 3.16+00 218565 1.87-02  -1.729 ************|***********|************|***********|************|***********|******      |           |
+ 3.98+00 118082 8.01-03  -2.096 ************|***********|************|***********|************|***********|*           |           |
+ 5.01+00  64814 3.49-03  -2.457 ************|***********|************|***********|************|********   |            |           |
+ 6.31+00  38084 1.63-03  -2.788 ************|***********|************|***********|************|****       |            |           |
+ 7.94+00  22813 7.76-04  -3.110 ************|***********|************|***********|************|           |            |           |
+ 1.00+01  13332 3.60-04  -3.444 ************|***********|************|***********|*********   |           |            |           |
+ 1.26+01   2753 5.91-05  -4.229 ************|***********|************|***********|            |           |            |           |
+ 1.58+01   2799 4.77-05  -4.321 ************|***********|************|********** |            |           |            |           |
+ 2.00+01  11041 1.49-04  -3.825 ************|***********|************|***********|****        |           |            |           |
+ 2.51+01   9019 9.70-05  -4.013 ************|***********|************|***********|**         s|           |            |           |
+ 3.16+01      1 8.54-09  -8.068 *           |           |            |           |  s         |           |            |           |
+  total 7899656 4.39-01         d-----------d-----------d------------d-----------d------------d-----------d------------d-----------d
+
+
+ cumulative tally number for tally  12  1.6+06   nonzero tally mean(m) = 1.428E+00   nps =  18000000    print table 162
+
+   abscissa     cum   ordinate    plot of the cumulative number of tallies in the tally fluctuation chart bin from 0 to 100 percent
+    tally      number  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.51188E-01       18    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-01    39181    0.496|         |         |         |         |         |         |         |         |         |         |
+ 3.98108E-01   151720    1.921|**       |         |         |         |         |         |         |         |         |         |
+ 5.01188E-01   342111    4.331|****     |         |         |         |         |         |         |         |         |         |
+ 6.30959E-01   615858    7.796|******** |         |         |         |         |         |         |         |         |         |
+ 7.94328E-01   979494   12.399|*********|**       |         |         |         |         |         |         |         |         |
+ 1.00000E+00  1523265   19.283|*********|*********|         |         |         |         |         |         |         |         |
+ 1.25893E+00  4596610   58.187|*********|*********|*********|*********|*********|******** |         |         |         |         |
+ 1.58490E+00  6149971   77.851|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmm |         |         |
+ 1.99527E+00  6971996   88.257|*********|*********|*********|*********|*********|*********|*********|*********|******** |         |
+ 2.51188E+00  7398353   93.654|*********|*********|*********|*********|*********|*********|*********|*********|*********|****     |
+ 3.16228E+00  7616918   96.421|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 3.98108E+00  7735000   97.916|*********|*********|*********|*********|*********|*********|*********|*********|*********|******** |
+ 5.01188E+00  7799814   98.736|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 6.30959E+00  7837898   99.218|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 7.94328E+00  7860711   99.507|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.00000E+01  7874043   99.676|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.25893E+01  7876796   99.711|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.58490E+01  7879595   99.746|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.99527E+01  7890636   99.886|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 2.51188E+01  7899655  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 3.16228E+01  7899656  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+    total     7899656  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1cumulative unnormed tally for tally  12  1.6+06 nonzero tally mean(m) = 1.428E+00   nps =  18000000    print table 162
+
+  abscissa     cum    ordinate                plot of the cumulative tally in the tally fluctuation chart bin from 0 to 100 percent
+   tally    tally/nps  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.512E-01  2.506E-07    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-01  6.370E-04    0.102|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-01  2.888E-03    0.461|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-01  7.663E-03    1.223|*        |         |         |         |         |         |         |         |         |         |
+ 6.310E-01  1.628E-02    2.597|***      |         |         |         |         |         |         |         |         |         |
+ 7.943E-01  3.069E-02    4.897|*****    |         |         |         |         |         |         |         |         |         |
+ 1.000E+00  5.803E-02    9.259|*********|         |         |         |         |         |         |         |         |         |
+ 1.259E+00  2.473E-01   39.466|*********|*********|*********|*********|         |         |         |         |         |         |
+ 1.585E+00  3.680E-01   58.722|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|         |         |         |         |
+ 1.995E+00  4.484E-01   71.551|*********|*********|*********|*********|*********|*********|*********|**       |         |         |
+ 2.512E+00  5.009E-01   79.917|*********|*********|*********|*********|*********|*********|*********|*********|         |         |
+ 3.162E+00  5.348E-01   85.324|*********|*********|*********|*********|*********|*********|*********|*********|*****    |         |
+ 3.981E+00  5.578E-01   89.001|*********|*********|*********|*********|*********|*********|*********|*********|*********|         |
+ 5.012E+00  5.738E-01   91.546|*********|*********|*********|*********|*********|*********|*********|*********|*********|**       |
+ 6.310E+00  5.856E-01   93.429|*********|*********|*********|*********|*********|*********|*********|*********|*********|***      |
+ 7.943E+00  5.945E-01   94.850|*********|*********|*********|*********|*********|*********|*********|*********|*********|*****    |
+ 1.000E+01  6.010E-01   95.893|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.259E+01  6.027E-01   96.165|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.585E+01  6.049E-01   96.517|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 1.995E+01  6.167E-01   98.402|*********|*********|*********|*********|*********|*********|*********|*********|*********|******** |
+ 2.512E+01  6.267E-01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 3.162E+01  6.267E-01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+   total  6.26744E-01  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1tally  22        nps = 18000000
++                                    Surface neutron fluxes over the short external vertical sides.            
+           tally type 2    particle flux averaged over a surface.       units   1/cm**2   
+           tally for  neutrons 
+
+           areas   
+                surface:    (23 24)                                                                                
+                         4.16000E+02
+ 
+ surface (23 24)                                                                                                       
+      energy
+    1.0000E-09   1.96669E-08 0.0972
+    2.1544E-09   9.20840E-08 0.0431
+    4.6416E-09   4.70907E-07 0.0208
+    1.0000E-08   2.33111E-06 0.0098
+    2.1544E-08   9.13064E-06 0.0051
+    4.6416E-08   2.39512E-05 0.0032
+    1.0000E-07   3.00662E-05 0.0029
+    2.1544E-07   1.13617E-05 0.0050
+    4.6416E-07   3.43745E-06 0.0102
+    1.0000E-06   3.21746E-06 0.0111
+    2.1544E-06   3.09820E-06 0.0113
+    4.6416E-06   3.11419E-06 0.0112
+    1.0000E-05   3.12156E-06 0.0113
+    2.1544E-05   3.15967E-06 0.0112
+    4.6416E-05   3.24459E-06 0.0114
+    1.0000E-04   3.22049E-06 0.0109
+    2.1544E-04   3.22067E-06 0.0114
+    4.6416E-04   3.20885E-06 0.0112
+    1.0000E-03   3.44362E-06 0.0112
+    2.1544E-03   3.44031E-06 0.0108
+    4.6416E-03   3.57360E-06 0.0109
+    1.0000E-02   3.51460E-06 0.0109
+    2.1544E-02   3.95186E-06 0.0102
+    4.6416E-02   4.50212E-06 0.0098
+    1.0000E-01   5.70565E-06 0.0084
+    2.1544E-01   8.10232E-06 0.0068
+    4.6416E-01   1.18353E-05 0.0057
+    1.0000E+00   2.10905E-05 0.0040
+    2.1544E+00   3.06859E-05 0.0030
+    4.6416E+00   3.16435E-05 0.0027
+    1.0000E+01   9.58531E-06 0.0044
+      total      2.50541E-04 0.0011
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally  22 with nps =  18000000    print table 160
+
+
+ normed average tally per history  = 2.50541E-04          unnormed average tally per history  = 1.04225E-01
+ estimated tally relative error    = 0.0011               estimated variance of the variance  = 0.0000
+ relative error from zero tallies  = 0.0008               relative error from nonzero scores  = 0.0007
+
+ number of nonzero history tallies =     1451979          efficiency for the nonzero tallies  = 0.0807
+ history number of largest  tally  =     2375411          largest  unnormalized history tally = 2.00000E+01
+ (largest  tally)/(average tally)  = 1.91892E+02          (largest  tally)/(avg nonzero tally)= 1.54791E+01
+
+ (confidence interval shift)/mean  = 0.0000               shifted confidence interval center  = 2.50542E-04
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            2.50541E-04             2.50544E-04                     0.000011
+      relative error                  1.07787E-03             1.07791E-03                     0.000038
+      variance of the variance        2.67406E-05             2.67448E-05                     0.000156
+      shifted center                  2.50542E-04             2.50542E-04                     0.000000
+      figure of merit                 6.73246E+04             6.73195E+04                    -0.000075
+
+ the 100 largest  history tallies appear to have a  maximum value of about 2.00000E+01
+ the large score tail of the empirical history score probability density function appears to have no unsampled regions.
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally  22
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed     random        0.00      yes          yes            0.00      yes         yes            constant   decrease     10.00
+ passed?        yes          yes      yes          yes             yes      yes         yes               yes         no         yes
+
+ ===================================================================================================================================
+
+
+ warning.  the tally in the tally fluctuation chart bin did not pass  1 of the 10 statistical checks.
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (1.408E+06)*( 2.187E-01)**2 = (1.408E+06)*(4.782E-02) = 6.732E+04
+1unnormed tally density for tally  22            nonzero tally mean(m) = 1.292E+00   nps =  18000000    print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope=10.0)
+  tally  number num den log den:d---------------------d-----------------------d----------------------d----------------------d-------
+ 2.51-01      7 7.53-06  -5.123 *                     |                       |                      |                      |       
+ 3.16-01  10944 9.35-03  -2.029 **********************|***********************|**********************|***                   |       
+ 3.98-01  30803 2.09-02  -1.680 **********************|***********************|**********************|***********           |       
+ 5.01-01  50806 2.74-02  -1.563 **********************|***********************|**********************|**************        |       
+ 6.31-01  70470 3.02-02  -1.520 **********************|***********************|**********************|***************       |       
+ 7.94-01  87412 2.97-02  -1.527 **********************|***********************|**********************|***************       |       
+ 1.00+00 122846 3.32-02  -1.479 **********************|***********************|**********************|****************      |       
+ 1.26+00 619823 1.33-01  -0.876 **********************|***********************|**********************|**********************|*******
+ 1.58+00 227095 3.87-02  -1.412 mmmmmmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmm    |       
+ 2.00+00 107971 1.46-02  -1.835 **********************|***********************|**********************|********              |       
+ 2.51+00  54425 5.85-03  -2.233 **********************|***********************|********************* |                      |       
+ 3.16+00  29486 2.52-03  -2.599 **********************|***********************|*************         |                      |       
+ 3.98+00  16278 1.10-03  -2.957 **********************|***********************|****                  |                      |       
+ 5.01+00   9039 4.87-04  -3.312 **********************|********************   |                      |                      |       
+ 6.31+00   5537 2.37-04  -3.625 **********************|*************          |                      |                      |       
+ 7.94+00   3225 1.10-04  -3.960 **********************|*****                  |                      |                      |       
+ 1.00+01   1952 5.27-05  -4.278 ********************* |                       |                      |                      |       
+ 1.26+01    642 1.38-05  -4.861 *******               |                       |                      |                      |       
+ 1.58+01    559 9.53-06  -5.021 ***                   |                       |                      |                      |       
+ 2.00+01   1628 2.20-05  -4.657 ************          |                       |                      |                      |       
+ 2.51+01   1031 1.11-05  -4.955 *****                 |                       |                      |                      |       
+  total 1451979 8.07-02         d---------------------d-----------------------d----------------------d----------------------d-------
+
+
+ cumulative tally number for tally  22           nonzero tally mean(m) = 1.292E+00   nps =  18000000    print table 162
+
+   abscissa     cum   ordinate    plot of the cumulative number of tallies in the tally fluctuation chart bin from 0 to 100 percent
+    tally      number  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.51188E-01        7    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-01    10951    0.754|*        |         |         |         |         |         |         |         |         |         |
+ 3.98108E-01    41754    2.876|***      |         |         |         |         |         |         |         |         |         |
+ 5.01188E-01    92560    6.375|******   |         |         |         |         |         |         |         |         |         |
+ 6.30959E-01   163030   11.228|*********|*        |         |         |         |         |         |         |         |         |
+ 7.94328E-01   250442   17.248|*********|*******  |         |         |         |         |         |         |         |         |
+ 1.00000E+00   373288   25.709|*********|*********|******   |         |         |         |         |         |         |         |
+ 1.25893E+00   993111   68.397|*********|*********|*********|*********|*********|*********|******** |         |         |         |
+ 1.58490E+00  1220206   84.037|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmm     |         |
+ 1.99527E+00  1328177   91.474|*********|*********|*********|*********|*********|*********|*********|*********|*********|*        |
+ 2.51188E+00  1382602   95.222|*********|*********|*********|*********|*********|*********|*********|*********|*********|*****    |
+ 3.16228E+00  1412088   97.253|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 3.98108E+00  1428366   98.374|*********|*********|*********|*********|*********|*********|*********|*********|*********|******** |
+ 5.01188E+00  1437405   98.996|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 6.30959E+00  1442942   99.378|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 7.94328E+00  1446167   99.600|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.00000E+01  1448119   99.734|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.25893E+01  1448761   99.778|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.58490E+01  1449320   99.817|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.99527E+01  1450948   99.929|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 2.51188E+01  1451979  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+    total     1451979  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1cumulative unnormed tally for tally  22         nonzero tally mean(m) = 1.292E+00   nps =  18000000    print table 162
+
+  abscissa     cum    ordinate                plot of the cumulative tally in the tally fluctuation chart bin from 0 to 100 percent
+   tally    tally/nps  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.512E-01  9.752E-08    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-01  1.779E-04    0.171|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-01  7.938E-04    0.762|*        |         |         |         |         |         |         |         |         |         |
+ 5.012E-01  2.068E-03    1.984|**       |         |         |         |         |         |         |         |         |         |
+ 6.310E-01  4.283E-03    4.109|****     |         |         |         |         |         |         |         |         |         |
+ 7.943E-01  7.744E-03    7.430|*******  |         |         |         |         |         |         |         |         |         |
+ 1.000E+00  1.392E-02   13.357|*********|***      |         |         |         |         |         |         |         |         |
+ 1.259E+00  5.176E-02   49.662|*********|*********|*********|*********|*********|         |         |         |         |         |
+ 1.585E+00  6.935E-02   66.541|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmm  |         |         |         |
+ 1.995E+00  7.990E-02   76.660|*********|*********|*********|*********|*********|*********|*********|*******  |         |         |
+ 2.512E+00  8.660E-02   83.089|*********|*********|*********|*********|*********|*********|*********|*********|***      |         |
+ 3.162E+00  9.118E-02   87.479|*********|*********|*********|*********|*********|*********|*********|*********|*******  |         |
+ 3.981E+00  9.436E-02   90.531|*********|*********|*********|*********|*********|*********|*********|*********|*********|*        |
+ 5.012E+00  9.658E-02   92.662|*********|*********|*********|*********|*********|*********|*********|*********|*********|***      |
+ 6.310E+00  9.829E-02   94.308|*********|*********|*********|*********|*********|*********|*********|*********|*********|****     |
+ 7.943E+00  9.955E-02   95.516|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.000E+01  1.005E-01   96.436|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.259E+01  1.009E-01   96.814|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 1.585E+01  1.013E-01   97.236|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 1.995E+01  1.031E-01   98.902|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 2.512E+01  1.042E-01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+   total  1.04225E-01  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1tally  32        nps = 18000000
++                                    Surface neutron fluxes over the external base.                            
+           tally type 2    particle flux averaged over a surface.       units   1/cm**2   
+           tally for  neutrons 
+
+           areas   
+                surface:      25                                                                                   
+                         2.12160E+02
+ 
+ surface  25                                                                                                           
+      energy
+    1.0000E-09   8.99134E-08 0.0617
+    2.1544E-09   4.13646E-07 0.0307
+    4.6416E-09   2.23777E-06 0.0140
+    1.0000E-08   1.06225E-05 0.0067
+    2.1544E-08   4.15161E-05 0.0034
+    4.6416E-08   1.09480E-04 0.0022
+    1.0000E-07   1.39923E-04 0.0020
+    2.1544E-07   6.22095E-05 0.0032
+    4.6416E-07   2.88409E-05 0.0051
+    1.0000E-06   2.87170E-05 0.0052
+    2.1544E-06   3.01103E-05 0.0051
+    4.6416E-06   3.24250E-05 0.0050
+    1.0000E-05   3.43695E-05 0.0049
+    2.1544E-05   3.69632E-05 0.0048
+    4.6416E-05   3.93080E-05 0.0046
+    1.0000E-04   4.18377E-05 0.0044
+    2.1544E-04   4.53188E-05 0.0043
+    4.6416E-04   4.81022E-05 0.0041
+    1.0000E-03   5.30873E-05 0.0040
+    2.1544E-03   5.73728E-05 0.0038
+    4.6416E-03   6.24505E-05 0.0037
+    1.0000E-02   6.51197E-05 0.0036
+    2.1544E-02   7.72655E-05 0.0033
+    4.6416E-02   8.99992E-05 0.0031
+    1.0000E-01   1.19550E-04 0.0026
+    2.1544E-01   1.71135E-04 0.0022
+    4.6416E-01   2.59982E-04 0.0018
+    1.0000E+00   4.48283E-04 0.0013
+    2.1544E+00   6.13132E-04 0.0010
+    4.6416E+00   5.67000E-04 0.0010
+    1.0000E+01   1.39483E-04 0.0021
+      total      3.45634E-03 0.0004
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally  32 with nps =  18000000    print table 160
+
+
+ normed average tally per history  = 3.45634E-03          unnormed average tally per history  = 7.33298E-01
+ estimated tally relative error    = 0.0004               estimated variance of the variance  = 0.0000
+ relative error from zero tallies  = 0.0003               relative error from nonzero scores  = 0.0003
+
+ number of nonzero history tallies =     8090122          efficiency for the nonzero tallies  = 0.4495
+ history number of largest  tally  =        4590          largest  unnormalized history tally = 2.00000E+01
+ (largest  tally)/(average tally)  = 2.72740E+01          (largest  tally)/(avg nonzero tally)= 1.22584E+01
+
+ (confidence interval shift)/mean  = 0.0000               shifted confidence interval center  = 3.45634E-03
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            3.45634E-03             3.45635E-03                     0.000001
+      relative error                  3.94620E-04             3.94622E-04                     0.000005
+      variance of the variance        5.10806E-06             5.10810E-06                     0.000009
+      shifted center                  3.45634E-03             3.45634E-03                     0.000000
+      figure of merit                 5.02279E+05             5.02274E+05                    -0.000011
+
+ the 100 largest  history tallies appear to have a  maximum value of about 2.00000E+01
+ the large score tail of the empirical history score probability density function appears to have no unsampled regions.
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally  32
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed     random        0.00      yes          yes            0.00      yes         yes            constant    random      10.00
+ passed?        yes          yes      yes          yes             yes      yes         yes               yes        yes         yes
+
+ ===================================================================================================================================
+
+
+
+
+ this tally meets the statistical criteria used to form confidence intervals: check the tally fluctuation chart to verify.
+ the results in other bins associated with this tally may not meet these statistical criteria.
+
+ estimated asymmetric confidence interval(1,2,3 sigma): 3.4550E-03 to 3.4577E-03; 3.4536E-03 to 3.4591E-03; 3.4523E-03 to 3.4604E-03
+ estimated  symmetric confidence interval(1,2,3 sigma): 3.4550E-03 to 3.4577E-03; 3.4536E-03 to 3.4591E-03; 3.4523E-03 to 3.4604E-03
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (1.408E+06)*( 5.973E-01)**2 = (1.408E+06)*(3.568E-01) = 5.023E+05
+1unnormed tally density for tally  32            nonzero tally mean(m) = 1.632E+00   nps =  18000000    print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope=10.0)
+  tally  number num den log den:d------------------d-------------------d------------------d-------------------d-------------------d-
+ 2.51-01      6 6.45-06  -5.190 *                  |                   |                  |                   |                   | 
+ 3.16-01  10921 9.33-03  -2.030 *******************|*******************|******************|*****              |                   | 
+ 3.98-01  32649 2.22-02  -1.655 *******************|*******************|******************|************       |                   | 
+ 5.01-01  60190 3.24-02  -1.489 *******************|*******************|******************|***************    |                   | 
+ 6.31-01  96481 4.13-02  -1.384 *******************|*******************|******************|*****************  |                   | 
+ 7.94-01 147819 5.03-02  -1.299 *******************|*******************|******************|*******************|                   | 
+ 1.00+00 272637 7.36-02  -1.133 *******************|*******************|******************|*******************|**                 | 
+ 1.26+00 3.0+06 6.45-01  -0.191 *******************|*******************|******************|*******************|*******************|*
+ 1.58+00 1.9+06 3.21-01  -0.494 *******************|*******************|******************|*******************|***************    | 
+ 2.00+00 1.1+06 1.56-01  -0.808 mmmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmm|mmmmmmmmmmmmmmmmmmm|mmmmmmmmm          | 
+ 2.51+00 679164 7.30-02  -1.136 *******************|*******************|******************|*******************|**                 | 
+ 3.16+00 356645 3.05-02  -1.516 *******************|*******************|******************|***************    |                   | 
+ 3.98+00 180550 1.23-02  -1.912 *******************|*******************|******************|*******            |                   | 
+ 5.01+00  94852 5.11-03  -2.291 *******************|*******************|******************|                   |                   | 
+ 6.31+00  47759 2.04-03  -2.689 *******************|*******************|***********       |                   |                   | 
+ 7.94+00  27962 9.51-04  -3.022 *******************|*******************|****              |                   |                   | 
+ 1.00+01  16369 4.42-04  -3.354 *******************|*****************  |                  |                   |                   | 
+ 1.26+01   1276 2.74-05  -4.563 *************      |                   |                  |                   |                   | 
+ 1.58+01   1594 2.72-05  -4.566 *************      |                   |                  |                   |                   | 
+ 2.00+01  12233 1.66-04  -3.781 *******************|*********          |                  |                   |                   | 
+ 2.51+01  14691 1.58-04  -3.801 *******************|********           |                  |                   |                   | 
+  total 8090122 4.49-01         d------------------d-------------------d------------------d-------------------d-------------------d-
+
+
+ cumulative tally number for tally  32  1.1+06   nonzero tally mean(m) = 1.632E+00   nps =  18000000    print table 162
+
+   abscissa     cum   ordinate    plot of the cumulative number of tallies in the tally fluctuation chart bin from 0 to 100 percent
+    tally      number  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.51188E-01        6    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-01    10927    0.135|         |         |         |         |         |         |         |         |         |         |
+ 3.98108E-01    43576    0.539|*        |         |         |         |         |         |         |         |         |         |
+ 5.01188E-01   103766    1.283|*        |         |         |         |         |         |         |         |         |         |
+ 6.30959E-01   200247    2.475|**       |         |         |         |         |         |         |         |         |         |
+ 7.94328E-01   348066    4.302|****     |         |         |         |         |         |         |         |         |         |
+ 1.00000E+00   620703    7.672|******** |         |         |         |         |         |         |         |         |         |
+ 1.25893E+00  3625646   44.816|*********|*********|*********|*********|*****    |         |         |         |         |         |
+ 1.58490E+00  5507520   68.077|*********|*********|*********|*********|*********|*********|******** |         |         |         |
+ 1.99527E+00  6657027   82.286|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mm       |         |
+ 2.51188E+00  7336191   90.681|*********|*********|*********|*********|*********|*********|*********|*********|*********|*        |
+ 3.16228E+00  7692836   95.089|*********|*********|*********|*********|*********|*********|*********|*********|*********|*****    |
+ 3.98108E+00  7873386   97.321|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 5.01188E+00  7968238   98.493|*********|*********|*********|*********|*********|*********|*********|*********|*********|******** |
+ 6.30959E+00  8015997   99.084|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 7.94328E+00  8043959   99.429|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.00000E+01  8060328   99.632|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.25893E+01  8061604   99.647|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.58490E+01  8063198   99.667|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.99527E+01  8075431   99.818|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 2.51188E+01  8090122  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+    total     8090122  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1cumulative unnormed tally for tally  32  1.1+06 nonzero tally mean(m) = 1.632E+00   nps =  18000000    print table 162
+
+  abscissa     cum    ordinate                plot of the cumulative tally in the tally fluctuation chart bin from 0 to 100 percent
+   tally    tally/nps  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 2.512E-01  8.360E-08    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-01  1.777E-04    0.024|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-01  8.312E-04    0.113|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-01  2.344E-03    0.320|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-01  5.388E-03    0.735|*        |         |         |         |         |         |         |         |         |         |
+ 7.943E-01  1.127E-02    1.536|**       |         |         |         |         |         |         |         |         |         |
+ 1.000E+00  2.505E-02    3.416|***      |         |         |         |         |         |         |         |         |         |
+ 1.259E+00  2.111E-01   28.793|*********|*********|*********|         |         |         |         |         |         |         |
+ 1.585E+00  3.578E-01   48.791|*********|*********|*********|*********|*********|         |         |         |         |         |
+ 1.995E+00  4.705E-01   64.160|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmm     |         |         |         |
+ 2.512E+00  5.543E-01   75.585|*********|*********|*********|*********|*********|*********|*********|******   |         |         |
+ 3.162E+00  6.095E-01   83.112|*********|*********|*********|*********|*********|*********|*********|*********|***      |         |
+ 3.981E+00  6.447E-01   87.916|*********|*********|*********|*********|*********|*********|*********|*********|******** |         |
+ 5.012E+00  6.680E-01   91.092|*********|*********|*********|*********|*********|*********|*********|*********|*********|*        |
+ 6.310E+00  6.828E-01   93.109|*********|*********|*********|*********|*********|*********|*********|*********|*********|***      |
+ 7.943E+00  6.937E-01   94.597|*********|*********|*********|*********|*********|*********|*********|*********|*********|*****    |
+ 1.000E+01  7.017E-01   95.692|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.259E+01  7.025E-01   95.800|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.585E+01  7.038E-01   95.972|*********|*********|*********|*********|*********|*********|*********|*********|*********|******   |
+ 1.995E+01  7.170E-01   97.776|*********|*********|*********|*********|*********|*********|*********|*********|*********|******** |
+ 2.512E+01  7.333E-01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+   total  7.33298E-01  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+1    some tally scores were not made for various reasons:
+
+                                  beyond last bin     not in
+                   tally      angle   energy   time    user         
+                     12          0    5306       0       0
+                     22          0    1259       0       0
+                     32          0    5977       0       0
+1status of the statistical checks used to form confidence intervals for the mean for each tally bin
+
+
+ tally   result of statistical checks for the tfc bin (the first check not passed is listed) and error magnitude check for all bins
+
+    12   passed the 10 statistical checks for the tally fluctuation chart bin result               
+         passed all bin error check:    32 tally bins all have relative errors less than 0.10 with no zero bins
+
+    22   missed  1 of 10 tfc bin checks: the figure of merit has a trend during the last half of the problem                       
+         passed all bin error check:    32 tally bins all have relative errors less than 0.10 with no zero bins
+
+    32   passed the 10 statistical checks for the tally fluctuation chart bin result               
+         passed all bin error check:    32 tally bins all have relative errors less than 0.10 with no zero bins
+
+
+ the 10 statistical checks are only for the tally fluctuation chart bin and do not apply to other tally bins.
+
+ warning.     1 of the   3 tally fluctuation chart bins did not pass all 10 statistical checks.
+1tally fluctuation charts                         
+
+                       tally   12                                tally   22                                tally   32
+       nps      mean     error   vov  slope    fom      mean     error   vov  slope    fom      mean     error   vov  slope    fom
+   1024000   7.6864E-04 0.0017 0.0001  7.0  461773   2.5156E-04 0.0045 0.0005 10.0   66918   3.4498E-03 0.0016 0.0001 10.0  505006
+   2048000   7.6920E-04 0.0012 0.0001  7.2  462024   2.5097E-04 0.0032 0.0002 10.0   66776   3.4479E-03 0.0012 0.0000 10.0  505040
+   3072000   7.6840E-04 0.0010 0.0000  7.2  462827   2.5070E-04 0.0026 0.0002 10.0   67506   3.4490E-03 0.0010 0.0000 10.0  506767
+   4096000   7.6828E-04 0.0009 0.0000  7.2  465983   2.5029E-04 0.0023 0.0001 10.0   68031   3.4513E-03 0.0008 0.0000 10.0  508378
+   5120000   7.6821E-04 0.0008 0.0000  7.2  466132   2.5030E-04 0.0020 0.0001 10.0   68261   3.4522E-03 0.0007 0.0000 10.0  508909
+   6144000   7.6815E-04 0.0007 0.0000  7.2  464724   2.5036E-04 0.0018 0.0001 10.0   68265   3.4533E-03 0.0007 0.0000 10.0  507428
+   7168000   7.6808E-04 0.0007 0.0000  7.2  463777   2.5052E-04 0.0017 0.0001 10.0   68092   3.4533E-03 0.0006 0.0000 10.0  506169
+   8192000   7.6793E-04 0.0006 0.0000  7.2  464208   2.5052E-04 0.0016 0.0001 10.0   68412   3.4539E-03 0.0006 0.0000 10.0  507908
+   9216000   7.6791E-04 0.0006 0.0000  7.2  464726   2.5027E-04 0.0015 0.0001 10.0   68512   3.4543E-03 0.0006 0.0000 10.0  507958
+  10240000   7.6798E-04 0.0005 0.0000  7.2  463809   2.5025E-04 0.0014 0.0000 10.0   68310   3.4546E-03 0.0005 0.0000 10.0  506700
+  11264000   7.6795E-04 0.0005 0.0000  7.2  463405   2.5038E-04 0.0014 0.0000 10.0   68219   3.4543E-03 0.0005 0.0000 10.0  506234
+  12288000   7.6791E-04 0.0005 0.0000  7.2  463169   2.5042E-04 0.0013 0.0000 10.0   68197   3.4555E-03 0.0005 0.0000 10.0  506072
+  13312000   7.6772E-04 0.0005 0.0000  7.2  462713   2.5056E-04 0.0013 0.0000 10.0   67930   3.4559E-03 0.0005 0.0000 10.0  505328
+  14336000   7.6791E-04 0.0005 0.0000  7.2  462690   2.5070E-04 0.0012 0.0000 10.0   67772   3.4555E-03 0.0004 0.0000 10.0  505703
+  15360000   7.6798E-04 0.0004 0.0000  7.2  462883   2.5070E-04 0.0012 0.0000 10.0   67703   3.4552E-03 0.0004 0.0000 10.0  505764
+  16384000   7.6793E-04 0.0004 0.0000  7.2  461991   2.5065E-04 0.0011 0.0000 10.0   67587   3.4556E-03 0.0004 0.0000 10.0  504540
+  17408000   7.6807E-04 0.0004 0.0000  7.2  460522   2.5055E-04 0.0011 0.0000 10.0   67474   3.4559E-03 0.0004 0.0000 10.0  503186
+  18000000   7.6807E-04 0.0004 0.0000  7.2  459827   2.5054E-04 0.0011 0.0000 10.0   67325   3.4563E-03 0.0004 0.0000 10.0  502279
+
+ ***********************************************************************************************************************
+ dump no.    2 on file runtpe       nps =  18000000     coll =      388243110     ctm =   12.78     nrn =     6489874154
+
+
+         7 warning messages so far.
+
+
+ run terminated when  18000000 particle histories were done.
+
+ computer time =   12.79 minutes
+
+ mcnp     version 4c2   01/20/01                      04/17/19 14:27:46                    probid =   04/17/19 14:14:58

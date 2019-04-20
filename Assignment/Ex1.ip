@@ -33,7 +33,7 @@ C ____Materials definitions____
 C Water
 M1    1001.42c -0.11190 $ H-1  and mass fraction
       8016.42c -0.88810 $ O-16 and mass fraction
-C stainless steel, data retrieved from the endf60 database.
+C stainless steel, data retrieved from the endf92 database.
 M2   24000.42c -0.18000 $ 18% Cr content
      26000.42c -0.74000 $ 74% Fe
      28000.42c -0.08000 $ 08% Ni content
@@ -64,4 +64,4 @@ C
 C ____Other control commands____
 C PRINT 110 $The source location has been confirmed using this card
 PRINT 160 161 162
-NPS  500000
+NPS  18000000

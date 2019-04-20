@@ -1,0 +1,26 @@
+C SDEF POS=D1 AXS=0 0 1 RAD=D2 EXT=D3 PAR=1$ using the default Watt spectrum,
+C SI1  L -20 0 0  20 0 0  0 -20 0  0 20 0  0 0 0 $ Centres of the 5 cylinders
+C SP1  0.2 0.2 0.2 0.2 0.2 $ Assign equal probability of emission
+C SI2  0.0 7.499999 $ 1 bit below the boundary of REAL*4::RAD=7.5
+C SP2  -21 1         $ uniformly distributed radially (r^1)
+C SI3  -12.499999 12.499999    $also 1 bit smaller than the actual boundary
+C SP3  0 1           $ uniform vertical distribution
+C Alternatively, envelope all cells and use the rejection method:
+C SDEF X=-27.5 27.5 Y=-27.5 27.5 Z=-29.8 -4.8 CEL=D1
+C SI1  L 11 12 13 14 15 $Reject n.'s that lies outside of defined cells,
+C SP1  0.2 0.2 0.2 0.2 0.2 $ And assign equal src strength to each cell.
+C But this method is inefficient (only 3% of the n.'s will be accepted)
+C ____Tallies____
+E0   1E-9 1E-7 1E-5 1E-3 1E-1
+FC12  Surface neutron fluxes over all sides of the concrete floor block
+F12:N (41 42 43 44)
+FC22  Surface neutron fluxes BELOW the concrete floor, at world's edge
+F22:N 45
+C ____Other control commands____
+PRINT 90 126 140 160 161 162 175 178
+C  60 (by default) shows cell material definitions
+C  90 shows the KCODE source data: Not printed?
+C 100 (by default) shows where are the cross-sections from
+C 126 and 140 show neutron activities
+C 16? show all Tallying statistics.
+C 17? show all criticality assessments
