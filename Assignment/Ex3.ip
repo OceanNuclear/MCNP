@@ -54,9 +54,11 @@ C Concrete floor
 
 C ____Materials definitions____
 C Water, boronated
-M1    1001.42c -0.11190 $ H-1  and mass fraction
-      8016.42c -0.88810 $ O-16 and mass fraction
-      5010.42c -0.003   $ Addition of Boron
+M1    1001.42c -0.111894 $ H-1  and mass fraction
+      8016.42c -0.888106 $ O-16 and mass fraction
+      5010.42c -0.0014   $ Addition of Boron
+C The weight fraction above is not normalized;
+C One should use table 40 to see the true wt. fraction of Boron added
 C stainless steel, data retrieved from the endf92 database.
 M2   24000.42c -0.18000 $ 18wt.% Cr
      26000.42c -0.74000 $ 74wt.% Fe
@@ -73,5 +75,6 @@ C ____Mode card____
 C Assume photoneutron production rate is negligible, so ignore photons
 Mode N $ Importances has already been defined above
 C ____Source definitions (in criticality mode)___
-KCODE 5000 1 10 200
+KCODE 10000 1 100 500
 KSRC -20 0 -17.3  20 0 -17.3  0 -20 -17.3  0 20 -17.3  0 0 -17.3
+PRINT 40 175 126

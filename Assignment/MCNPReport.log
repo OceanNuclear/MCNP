@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  20 APR 2019 00:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  20 APR 2019 21:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -239,11 +239,19 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 )
 \c@ContinuedFloat=\count102
 )
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count103
+\float@exts=\toks23
+\float@box=\box28
+\@float@everytoks=\toks24
+\@floatcapt=\box29
+)
 (/usr/share/texlive/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count103
-\c@@ppsavesec=\count104
-\c@@ppsaveapp=\count105
+\c@@pps=\count104
+\c@@ppsavesec=\count105
+\c@@ppsaveapp=\count106
 )
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -289,17 +297,17 @@ LaTeX Font Info:    ... okay on input line 12.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count106
+\scratchcounter=\count107
 \scratchdimen=\dimen129
-\scratchbox=\box28
-\nofMPsegments=\count107
-\nofMParguments=\count108
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count109
+\scratchbox=\box30
+\nofMPsegments=\count108
+\nofMParguments=\count109
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count110
 \MPscratchDim=\dimen130
-\MPnumerator=\count110
-\makeMPintoPDFobject=\count111
-\everyMPtoPDFconversion=\toks24
+\MPnumerator=\count111
+\makeMPintoPDFobject=\count112
+\everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -387,34 +395,51 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-(./MCNPReport.aux) ) 
+<ConfidenceInterval.png, id=26, 462.528pt x 346.896pt>
+File: ConfidenceInterval.png Graphic file (type png)
+<use ConfidenceInterval.png>
+Package pdftex.def Info: ConfidenceInterval.png  used on input line 143.
+(pdftex.def)             Requested size: 189.6871pt x 142.26378pt.
+ [5]
+<Ex1CrxSx.png, id=31, 654.445pt x 422.57875pt>
+File: Ex1CrxSx.png Graphic file (type png)
+<use Ex1CrxSx.png>
+Package pdftex.def Info: Ex1CrxSx.png  used on input line 152.
+(pdftex.def)             Requested size: 282.01501pt x 182.09746pt.
+File: Ex1CrxSx.png Graphic file (type png)
+<use Ex1CrxSx.png>
+Package pdftex.def Info: Ex1CrxSx.png  used on input line 159.
+(pdftex.def)             Requested size: 282.01501pt x 182.09746pt.
+ [6 <./ConfidenceInterval.png> <./Ex1CrxSx.png>] (./MCNPReport.aux) ) 
 Here is how much of TeX's memory you used:
- 4792 strings out of 494880
- 70208 string characters out of 6179600
- 140483 words of memory out of 5000000
- 8061 multiletter control sequences out of 15000+600000
- 9421 words of font info for 34 fonts, out of 8000000 for 9000
+ 4862 strings out of 494880
+ 71210 string characters out of 6179600
+ 142874 words of memory out of 5000000
+ 8124 multiletter control sequences out of 15000+600000
+ 10027 words of font info for 36 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 41i,5n,38p,878b,200s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/ocean/.texlive2017/texmf-var/fonts/pk/ljfour/jknapp
-en/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmtt12.pfb>
-Output written on MCNPReport.pdf (4 pages, 112152 bytes).
+ 41i,9n,39p,916b,307s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/oc
+ean/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12
+.pfb>
+Output written on MCNPReport.pdf (6 pages, 162526 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 73 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

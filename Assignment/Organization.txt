@@ -2,48 +2,10 @@
 2. See the first 50, if they are sensible or not.
 3. For the tex file: I wanted to make all sections' title (including but not limited to: "\section", "\includegraphics{geometry used}", "\subsection{questions}") and then make sure to include two horizontal cross sections, 1 above the water level, 1 below.
 ____
-Material 1: Water
-	H2O
-Material 2: Stainless Steel
-	Iron		74 wt%	Z = 26
-	Chromium	18 wt%	Z = 24
-	Nickel		8 wt%	Z = 28
-Material 3: Concrete
-	Element	Atomic number	Weight (%)
-	Oxygen		8	53
-	Silicon		14	34
-	Calcium		20	10
-	Hydrogen	1	3
-____
-Databases to try:
-.42c:
-	-used by Fisph.ip (me) for Uranium, with n and p
-	+Used for the Stainless steel
-.46c:
-	-used by no one?!
-.60c:
-	-used by Los Alamos (in the MCNP manual) for mode n p
-	+Used for the water
-____
-n+235U:
-Thermal	0.988	2.249
-f=-3 for Watt Spectrum
-____
-1.
-	E0 1E-8 1E-7 1E-6 1E-5 1E-4 1E-3 1E-2 1E-1 1E0 1E1
-E0   1E-9 2.15443469E-9 4.64158883E-9 1E-8 2.15443469E-8 4.64158883E-8
-     1E-7 2.15443469E-7 4.64158883E-7 1E-6 2.15443469E-6 4.64158883E-6
-     1E-5 2.15443469E-5 4.64158883E-5 1E-4 2.15443469E-4 4.64158883E-4
-     1E-3 2.15443469E-3 4.64158883E-3 1E-2 2.15443469E-2 4.64158883E-2
-     1E-1 2.15443469E-1 4.64158883E-1 1E0 2.15443469E0 4.64158883E0 1E1
-
-3.
-	No tallies needed; but will require the use of something else.
-____
 *Tasks:
 All the \\*'s in MCNPReport.tex:
-	[ ]insert graphics of cross section and Watt spectrum
 	[x]Write python script to extract and plot data
+	[ ]insert graphics of cross section and Watt spectrum
 	[ ]Insert python plots
 	[ ]How many of them didn't pass the statistical test
 	[ ]Extract the data of how many cycles is needed for convergence, how many cm, 
@@ -55,9 +17,9 @@ Other writing task in the .tex:
 	[ ]Answer how much boron is required to keep the keff<0.8; and how certain is that, in the Analysis and Discussion section.
 	[ ]Move everything else into somewhere else.
 	[ ]Create a "Results" section detailing the spectra obtained
-[ ]Find whether the Ex1_500000.out converged or not; if not then how much longer is required.
-[ ]Use a databse with delayed neutron cross-section
-[ ]Find the suitable thickness such that <1%
+[x]Find whether the Ex1_500000.out converged or not; if not then how much longer is required.
+[x]Use a databse with delayed neutron cross-section
+[x]Find the suitable thickness such that <1%
 ____
 Things to consider:
 Apparently table 161 and 162 has unormalized tally as their abscissa; 161 is simply a (log-x and log-y) histogram of the tallies stored; each tally is stored as its full energy.

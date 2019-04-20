@@ -2,7 +2,7 @@
 from numpy import cos, arccos, sin, arctan, tan, pi, sqrt; from numpy import array as ary; import numpy as np; tau = 2*pi
 from matplotlib import pyplot as plt
 
-fname="Ex3_5000_500.err"
+fname="/home/ocean/Documents/GitHubDir/MCNP/Assignment/Ex3_e25_0.15B.err"
 f=open(fname,"r")
 data=f.readlines()
 f.close()

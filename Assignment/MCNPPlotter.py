@@ -1,7 +1,7 @@
 #!/home/ocean/anaconda3/bin/python3
 from numpy import cos, arccos, sin, arctan, tan, pi, sqrt; from numpy import array as ary; import numpy as np; tau = 2*pi
 from matplotlib import pyplot as plt
-#Created to plot the variation in number of particles.
+#Created to plot the variation in number of particles, reading from file as well.
 def ReadBlockOfText(fname,trigger1,length,trigger2="",ScrollMore=1):
 	assert type(trigger1)==str
 	assert type(trigger2)==str

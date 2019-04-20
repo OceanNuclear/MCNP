@@ -1,7 +1,7 @@
 %\nonstopmode
 \hbadness=100000
 \documentclass[a4paper, 12pt]{article}
-\usepackage{verbatim,amsmath,graphicx,geometry,textcomp,url,caption}
+\usepackage{verbatim,amsmath,graphicx,geometry,textcomp,url,caption,float}
 \geometry{ a4paper, total={170mm,257mm}, left=20mm, top=20mm}
 
 \usepackage[toc, page]{appendix}
@@ -15,20 +15,58 @@ MCNP Report										\\
 Ocean Wong (Hoi Yeung Wong)						\\
 MSc Physics and Technology of Nuclear Reactors	\\
 2019-03-09 										\\
+\textbf{Abstract}
+Abstract yet to be written
 \end{center}
-\section{Result}
-For the following exercise all parts are created using the ENDL92 library (which is the most recently updated library available), and ran on the phymat server of University of Birmingham School of Physics and Astronomy, which is a Scientific Linux 7.3 (Nitrogen) system with 16 CPU's (Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz) (though it is important to note that only 1 CPU is used at a time because this version of MCNP does not support parallel computing). 
-\\Note that there is no delayed neutron cross section data available in ENDL92 (or any other nuclear databases available on phymat), so the simulation may deviate from reality slightly.
-\subsection{Exercise 1 Simple Neutron Source in a Bucket of Water}
-\subsubsection{Input file}
-Energy cut-off is not applied so that very slow (thermalized) neutrons to interact and let further reactions take place.
-\\Therefore the lower bound of the $1^{st}$ bin is 0.
-\\The temperature of the cross-section data in databse 42(ENDL92, acquired by Lawrence Livermore National Laboratory) were acrquired at T=300K, as shown in 91-99, and is subsequently adjusted down to 20.4 $C^{o}$ ($2.53 \times 10^{-8}$MeV). Either way, thermal effects should significantly affect that falls into the first 3 energy bins. ($0$-$10^{-9}$MeV, $10^{-9}$-$10^{-8}$MeV,$10^{-8}$-$10^{-7}$MeV respectively).
-\\*Insert the pictures of the cross sections of the geometry here, caption with cell number and material number\\
+\section{Introduction}
+\subsection{Exercise 1}
+Write something \\* Will have to finish later (Explain in outline what your modelling is trying to achieve and what you are setting out to achieve. Provide some relevant background information)
+\section{Method}
+\paragraph{Computing facility}For the following exercise all parts are created using the ENDL92 library (which is the most recently updated library available), and ran on the phymat server of University of Birmingham School of Physics and Astronomy, which is a Scientific Linux 7.3 (Nitrogen) system with 16 CPU's (Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz) (though it is important to note that only 1 CPU is used at a time because this version of MCNP does not support parallel computing). 
+\paragraph{Geometry definition} The geometry for exercise 1 and 3 were set to the dimensions as required by the problem sheet; the cross-sections of their geometries are shown in Figure \ref{Ex1CrxSx} and \ref{Ex3CrxSx} in the Appendices.
+\paragraph{Energy cutoff}
+Energy cut-off is not applied so that very slow (thermalized) neutrons are allowed to interact and let further reactions take place.
 
+\subsection{Exercise 1 Simple Neutron Source in a Bucket of Water}
+Therefore for exercise 1, the lower bound of the $1^{st}$ bin of each tally is E=0.
+
+The temperature of the cross-section data in databse 42(ENDL92, acquired by Lawrence Livermore National Laboratory) were acrquired at T=300K, as shown in 91-99, and is subsequently adjusted down to 20.4 ${}^{o}$C ($2.53 \times 10^{-8}$MeV) when running the simulation. Either way, thermal effects should significantly affect that falls into the first 3 energy bins. ($0$-$10^{-9}$MeV, $10^{-9}$-$10^{-8}$MeV,$10^{-8}$-$10^{-7}$MeV respectively).
+
+Note that the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is below the thermal energy of room temperature; neutrons of these energies are strongly affected by the free gas thermal treatment of the interaction cross sections; additionally due to the large cross section in the thermal region which increases as the neutron slows, very few neutrons of these energies can travel far enough to be counted by these surface flux tallies. Therefore this bin always have the largest relative errors among all bins.
+
+To ensure that no bins have relative error larger than 0.10 such that the results are reliable, enough histories must be ran to allow this energy bin in all 3 tallies to be filled sufficiently, in addition to passing all 10 statistical checks.
+
+The tally probability distributions (histograms shown in table 161's) all show reasonably Gaussian distributions (and the cumulative probability distributions all show reasonably sigmoidal distributions) without the majority of the counts falling into a particular bin; therefore there is no inherent reason for using a finer spacing; but for the purpose of visualizing the spectrum with a higher resolution, a finer group structure with trifolded bin density (still logarithmically spaced, 3 bins per decade) was used.
+
+Even when the spacing of energy groups is trisected in this manner, the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is still the bin that receives the least counts. In a real problem this would have been merged with the $2^{nd}$ bin to form a single, larger bin to tally up all the completely thermalized neutrons, increasing its count so that it converges to a precise enough value in a shorter CPU time; but according to the constraint of the problem, there must be one bin with ${10^{-9}}$ MeV as the upper limit. Therefore the only option left is to increase the number of histories such that the results of this bin converges.
+\subsection{Exercise 3: Criticality}
+Note that there is no delayed neutron cross section data available in ENDL92 (or any other nuclear databases available on phymat), so the simulation may deviate from reality slightly. There is no workaround for this issue; but one can assume, for the purpose of this simulation, that a cross-section database without delayed neutron cross-section should be accurate enough.
+\paragraph{Geometry definition} It is easier geometry to define the geometry if a sphere was used to define the graveyard (void) outside; but a cuboidal geometry was chosen instead to allow the surface flux detectors (F2) to tally particles passing through lateral surfaces separately from particles passing through horizontal surfaces.
+
+All components except the concrete floor had the same neutron importance. Neutron importance in concrete started off at 1 but was subsequently reduced to 0.1 such that the simulation runs faster by ignoring particles that enter the concrete, since they will otherwise undergo a lot of collision (each requiring a lot of CPU time) to slow down, without causing multiplication.
+
+If the mean free path to absorption $\lambda_{\text{abs}}$ is known, the dimension of the concrete floor can be chosen to extend from the stainless steel tank by $N\lambda_{\text{abs}}$ where N is some arbitrary threshold factor (e.g. 3).
+
+However only the mean free path to collision for neutron is found on a Cell particle activity table (using \texttt{PRINT 126}). Since concrete is only a weakly neutron-absorbing medium, this cannot be used as the proxy for $\lambda_{\text{abs}}$.
+
+Instead the fraction of neutrons escaping the concrete block into the void was measured. This was done by comparing the number of neutrons travelling from the concrete to the void region (where neutron importance = 0, measured with a surface flux tally card) to the neutron population in the concrete. The quantity ``population" instead of ``tracks entering" was used because the latter re-counts particles re-entering the same cell, thus the former is a more accurate measurement of how many distinct neutrons have been present in the concrete block. The simulation is considered accurate when the ratio of these two numbers is less than 1\%, i.e. $<$ 1\% of the neutrons entering the concrete were "killed" (by entering the void region) instead of being absorbed in the concrete/reflected back towards the tank. The dimension of the concrete block was increased until this ratio is lower than 1\%.
+
+This resulted in a concrete floor block of 160.4cm in the x- and y-directions and 50 cm in the z-direction, resulting in 0.21621209\%  and 0.04494092\% of neutrons escaping through the lateral planes and the horizontal plane (plane separating the concrete block from the void below) respectively. This was used as the final dimension for the concrete block.
+
+\paragraph{Source definition}
+Using the \texttt{KSRC} card a ``generic Watt spectrum"(\\* Quote MCNP manaul p.2-160) of neutrons was created at the center points of each cylinder.
+\\This allowed for very fast convergence of the results, where the $\text{k}_{\text{eff}}$ value settled down to a stable value in less than 10 generations. The $k_{eff}$ estimation started after that.
+\\The alternatives of using an \texttt{SDEF} card with a cookie cutter(\texttt{CCC}) rejection/\texttt{CEL} rejection OR 5 uniform cylindrical sources overlayed onto cell 11-15 (all the uranium cylinder cells) were attempted, but were not applied in the end because it is likely to distribute neutrons close to the non-re-entrant surfaces where they can escape. \\*Quote MCNP p.4-30
+
+\paragraph{Choices of number of cycles}
+3000 particles per cycle were shown to give a $\text{k}_{\text{eff}}$ that converges in 10 cycles; 5000 particles per cycles were shown to give faster convergence of $\text{k}_{\text{eff}}$ value (in $>$ 5 cycles), but further increase in number of particles per cycles to 8000 did not show significant improvemence in speed of convergence. Therefore the number of particles were chosen to be 5000, and the first 10 cycles were skipped (ikz=10).
+At 5000 particles per cycle, the $\text{k}_{\text{eff}}$ value was shown to converge sufficiently by the 500 cycles; further increase in total number of cycles yields deminishing marginal at the cost of increasing computing time, asymptotically approaching 0; thus only 500 cycles was ran, requiring 10.27 minutes of computing time.
+
+\section{Result}
+\subsection{Exercise 1 Simple Neutron Source in a Bucket of Water}
 \subsubsection{Output file}
 By examining the first 50 particles(using \texttt{PRINT 110}), the source was confirmed to be a point souce 2cm above the centre of the bottom of the tank's internal surface; and the majority of the particles have initial energy $E<4$ MeV as expected when they are distributed according to the Watt spectrum for neutron generated by ${}^{235}U$+n(thermal).
-\\*Insert Watt Spectrum .png
+includegraphics
 \\Note from the Watt spectrum above that there is a small but non-zero probability of getting neutrons of very high energy. This leads to some warning messages when the occassional particle scores above the upper limit of the largest tallying bin.
 \\*plot variation of VoV, fom, , as nps increases to 20000\\
 \begin{enumerate}
@@ -47,36 +85,13 @@ By examining the first 50 particles(using \texttt{PRINT 110}), the source was co
 	\\More neutrons can penetrate the base at the energy its creation energy without being moderated by the water; therefore the $1^{st}$ bin of tally 32is more filled than that of tally 12. 
 	\\The ratio of neutron flux in the slow/Cadmium region ($<$0.01 MeV) to neutron flux in the resonance regions ($>$0.01MeV) builds up since the latter gets slowed down/captured by the resonance peaks much faster than the rate of consumption of the former, as they travel through the material.
 \end{enumerate}
-Note that the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is below the thermal energy of room temperature; neutrons of these energies are strongly affected by the free gas thermal treatment of the interaction cross sections; additionally due to the large cross section in the thermal region which increases as the neutron slows, very few neutrons of these energies can travel far enough to be counted by these surface flux tallies. Therefore this bin always have the largest relative errors among all bins.
 
-To ensure that no bins have relative error larger than 0.10 to ensure that the results are reasonable, enough histories must be ran to allow this energy bin in all 3 tallies to be filled sufficiently, in addition to passing all 10 statistical checks.
-
-The tally probability distributions (histograms shown in table 161's) all show reasonably Gaussian distributions (and the cumulative probability distributions all show reasonably sigmoidal distributions) without the majority of the counts falling into a particular bin; therefore there is no inherent reason for using a finer spacing; but for the purpose of visualizing the spectrum with a higher resolution, a finer group structure with trifolded bin density (still logarithmically spaced, 3 bins per decade) was used.
-\\Even when the spacing of energy groups is trisected in this manner, the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is still the bin that receives the least counts. In a real problem this would've been merged with the $2^{nd}$ bin to form a single, larger bin to tally up all the completely thermalized neutrons, increasing its count so that it converges to a precise enough value in a shorter CPU time; but according to the constraint of the problem, there must be one bin with ${10^{-9}}$ MeV as the upper limit. Therefore the only option left is to increase the number of histories such that the results of this bin converges.
-\\Even after running 500000 histories, the relative error for this bin remains high ($0.2599$, $0.4236$, $0.3681$, for tally 12, 22, and 32, respectively) despite the fact that all other statistical checks were passed and the fom has alreay converged to a stable asymptotic limit.
+Even after running 500000 histories, the relative error for this bin remains high ($0.2599$, $0.4236$, $0.3681$, for tally 12, 22, and 32, respectively) despite the fact that all other statistical checks were passed and the fom has alreay converged to a stable asymptotic limit.
 
 If one does not care for the accuracy of the $1^{st}$ bin, then running 2800000 histories is sufficient, as it passess all statistical test, such as the figure of merit having stablized enough by the 2800000 history, in a reasonable computing time of 1.98 minutes. However, 16000000 histories are required for the convergence of the $1^{st}$ bin, requiring 12.79 minutes of coputing time, which is quite long for a simple problem.
 \\Additionally, the statistics of tally 22 is poor, leading to a fluctuating Figure of Merit being recorded, leading to what appears to be a decreasing trend in FoM the last half of the simulation, missing the fom statistical check. Therefore it is less reliable than the other two (tally 12 and tally 32) tally's statistics.
 
-\subsection{Exercise 3: Criticality}
-\subsubsection{Input file}
-\paragraph{Geometry definition}
-It is easier geometry to define the geometry if a sphere was used to define the graveyard (void) outside; but a cuboidal geometry was chosen instead to allow the surface flux detectors (F2) to tally particles passing through lateral surfaces separately from particles passing through horizontal surfaces.
-\\All components except the concrete floor had the same neutron importance. Neutron importance in concrete started off at 1 but was subsequently reduced to 0.1 such that the simulation runs faster by ignoring particles that enter the concrete, since they will otherwise undergo a lot of collision (each requiring a lot of CPU time) to slow down, without causing multiplication.
-\\If the mean free path to absorption $\lambda_{\text{abs}}$ is known, the dimension of the concrete floor can be chosen to extend from the stainless steel tank by $N\lambda_{\text{abs}}$ where N is some arbitrary threshold factor (e.g. 3).
-\\However only the mean free path to collision for neutron is found on a Cell particle activity table (using \texttt{PRINT 126}). Since concrete is only a weakly neutron-absorbing medium, this cannot be used as the proxy for $\lambda_{\text{abs}}$.
-\\Instead the fraction of neutrons escaping the concrete block into the void was calculated. This was done by comparing the number of neutrons travelling from the concrete to the void region (where neutron importance = 0) to the neutron population in the concrete. The quantity ``population" instead of ``tracks entering" was used because the latter re-counts particles re-entering the same cell, thus the former is a more accurate measurement of how many distinct neutrons have been present in the concrete cell. The simulation is considered accurate when the ratio of these two numbers is less than 1\%, i.e. $<$ 1\% of the neutrons entering the concrete were "killed" (by entering the void region) instead of being absorbed in the concrete/reflected back towards the tank. The dimension of the concrete block was increased until this ratio is lower than 1\%.
-\\This resulted in a concrete floor block of 160.4cm in the x- and y-directions and 50 cm in the z-direction, resulting in 0.21621209\%  and 0.04494092\% of neutrons escaping through the lateral planes and the horizontal plane (plane separating the concrete block from the void below) respectively. This was used as the final dimension for the concrete block.
-
-\paragraph{Source definition}
-Using the \texttt{KSRC} card a ``generic Watt spectrum"(\\* Quote MCNP manaul p.2-160) of neutrons was created at the center points of each cylinder.
-\\This allowed for very fast convergence of the results, where the $\text{k}_{\text{eff}}$ value settled down to a stable value in less than 10 generations. The $k_{eff}$ estimation started after that.
-\\The alternatives of using an \texttt{SDEF} card with a cookie cutter(\texttt{CCC}) rejection/\texttt{CEL} rejection OR 5 uniform cylindrical sources overlayed onto cell 11-15 (all the uranium cylinder cells) were attempted, but were not applied in the end because it is likely to distribute neutrons close to the non-re-entrant surfaces where they can escape. \\*Quote MCNP p.4-30
-
-\paragraph{Choices of number of cycles}
-3000 particles per cycle were shown to give a $\text{k}_{\text{eff}}$ that converges in 10 cycles; 5000 particles per cycles were shown to give faster convergence of $\text{k}_{\text{eff}}$ value (in $>$ 5 cycles), but further increase in number of particles per cycles to 8000 did not show significant improvemence in speed of convergence. Therefore the number of particles were chosen to be 5000, and the first 10 cycles were skipped (ikz=10).
-At 5000 particles per cycle, the $\text{k}_{\text{eff}}$ value was shown to converge sufficiently by the 500 cycles; further increase in total number of cycles yields deminishing marginal at the cost of increasing computing time, thus only 500 cycles was ran.
-
+\section{Analysis and discussion}
 \subsubsection{Questions}
 \begin{itemize}
 	\item The final $\text{k}_{\text{eff}}$ estimate and its standard deviation is reported in line 4174-4178 of the output file for 20wt.\% enriched Uranium with no Boron addition as follows:
@@ -100,8 +115,51 @@ At 5000 particles per cycle, the $\text{k}_{\text{eff}}$ value was shown to conv
 	\begin{itemize}
 		\item the lack of delayed neutron cross section library should only make an insignificant difference to the final $k_{\text{eff}}$ because they shouldn't care
 	\end{itemize}
-	\item In addition to Monte Carlo stochastic uncertainties what other uncertainties may need 
-	to be considered in a criticality safety assessment?
+	\item In addition to Monte Carlo stochastic uncertainties what other uncertainties may need to be considered in a criticality safety assessment?
 \end{itemize}
+The $\text{k}_{\text{eff}}$ increased up to $1.06627 \pm 0.00045$ when the enrichment increased up to 25\% as expected, since more neutrons are absorbed by fissile atom causing fission. However addition of Boron at $\approx$ 0.3wt.\% (i.e. 3000ppm, similar concentration to those found in PWR) was already sufficient to decrease the $\text{k}_{\text{eff}}$ down to $0.76681 \pm 0.00063$.
+
+Subsequent iterative simulations with decreasing boron concentration shows that
+\begin{itemize}
+ 	\item The magnitude of combined $\text{k}_{\text{eff}}$ variation between cycles is larger compared to the case when no boron was present, possibly due to the increased number of neutrons being absorbed by the Boron in water;
+	\item The computing time per cycle decreased, likely due to the lowered $\text{k}_{\text{eff}}$;
+\end{itemize} 
+This leads to the decisions to 
+\begin{itemize}
+	\item increase the total number of cycles to 800 to reduce the uncertainty on $\text{k}_{\text{eff}}$ such that a lower minimum concentration of Boron can be calculated while maintaining sufficient confidence that it will keep the $\text{k}_{\text{eff}} < 0.8 $
+	\item increase the number of particles per simulation was also doubled to 10000 to counteract the increased uncertainty introduced by the absorbing power of Boron.
+	\item increase the number of cycle skipped at the beginning to 100 to account for the slower convergence due to the increased cycle-to-cycle fluctuation in $\text{k}_{\text{eff}}$
+\end{itemize}
+Which still leads to a very acceptable computing time of  $<$ 8 minutes.
+
+Only the unnormalized weight fraction of Boron was changed between iterations, letting MCNP to normalize the weight fraction of Boron in water and printing the resulting normalized weight fraction of boron in table 40.
+
+The 3 $\sigma$ envelope of $\text{k}_{\text{eff}}$ was found to remain under 0.8 when Boron concentration $>1.39804$ppm (input file's unnormalized weight fraction of boron =0.14\% times the water's weight fraction); any higher (i.e. at $1.29831$ppm) and the 3 $\sigma$ confidence interval begins to cross over the $\text{k}_{\text{eff}}>0.8$ threshold, i.e. there will be a larger than $0.0675 \%$ chance of its $\text{k}_{\text{eff}} >0.8$ (See Figure \ref{ConfInt}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=5cm]{ConfidenceInterval.png}
+\caption{The $\text{k}_{\text{eff}}$ only remains below 0.8 at Boron concentration $\approx$ $<14$ ppm.
+}\label{ConfInt}
+\end{figure}
+
+\begin{appendices}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=6.4cm]{Ex1CrxSx.png}
+\caption{The XZ and XY cross section of the bucket at the origin (z=0 and y=0 respectively)
+}\label{Ex1CrxSx}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=6.4cm]{Ex1CrxSx.png}
+\caption{The XZ and XY cross section of the bucket at the origin (z=0 and y=0 respectively)
+}\label{Ex3CrxSx}
+\end{figure}
+
+
+\end{appendices}
 
 \end{document}
