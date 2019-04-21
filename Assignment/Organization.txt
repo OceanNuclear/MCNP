@@ -2,24 +2,13 @@
 2. See the first 50, if they are sensible or not.
 3. For the tex file: I wanted to make all sections' title (including but not limited to: "\section", "\includegraphics{geometry used}", "\subsection{questions}") and then make sure to include two horizontal cross sections, 1 above the water level, 1 below.
 ____
-*Tasks:
-All the \\*'s in MCNPReport.tex:
-	[x]Write python script to extract and plot data
-	[ ]insert graphics of cross section and Watt spectrum
-	[ ]Insert python plots
-	[ ]How many of them didn't pass the statistical test
-	[ ]Extract the data of how many cycles is needed for convergence, how many cm, 
-	[ ]Create table for fluxes in Ex1
-	[ ]Quote MCNP manual using citethisforme.com
-Other writing task in the .tex:
-	[ ]Answer the question IFF in the Analysis and Discussion section
-	[ ]
-	[ ]Answer how much boron is required to keep the keff<0.8; and how certain is that, in the Analysis and Discussion section.
-	[ ]Move everything else into somewhere else.
-	[ ]Create a "Results" section detailing the spectra obtained
+Add a bit on material used
+____
 [x]Find whether the Ex1_500000.out converged or not; if not then how much longer is required.
 [x]Use a databse with delayed neutron cross-section
 [x]Find the suitable thickness such that <1%
+[x]Write python script to extract and plot data
+Other writing task in the .tex:
 ____
 Things to consider:
 Apparently table 161 and 162 has unormalized tally as their abscissa; 161 is simply a (log-x and log-y) histogram of the tallies stored; each tally is stored as its full energy.

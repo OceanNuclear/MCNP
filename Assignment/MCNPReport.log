@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  20 APR 2019 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  21 APR 2019 05:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -247,6 +247,29 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks24
 \@floatcapt=\box29
 )
+(/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
+\ttl@box=\box30
+\beforetitleunit=\skip46
+\aftertitleunit=\skip47
+\ttl@plus=\dimen129
+\ttl@minus=\dimen130
+\ttl@toksa=\toks25
+\titlewidth=\dimen131
+\titlewidthlast=\dimen132
+\titlewidthfirst=\dimen133
+)
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/share/texlive/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip48
+\plpartopsep=\skip49
+\plitemsep=\skip50
+\plparsep=\skip51
+\pl@lab=\toks26
+)
 (/usr/share/texlive/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
 \c@@pps=\count104
@@ -276,38 +299,38 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 (./MCNPReport.aux)
 \openout1 = `MCNPReport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 17.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    ... okay on input line 17.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count107
-\scratchdimen=\dimen129
-\scratchbox=\box30
+\scratchdimen=\dimen134
+\scratchbox=\box31
 \nofMPsegments=\count108
 \nofMParguments=\count109
-\everyMPshowfont=\toks25
+\everyMPshowfont=\toks27
 \MPscratchCnt=\count110
-\MPscratchDim=\dimen130
+\MPscratchDim=\dimen135
 \MPnumerator=\count111
 \makeMPintoPDFobject=\count112
-\everyMPtoPDFconversion=\toks26
+\everyMPtoPDFconversion=\toks28
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -368,15 +391,15 @@ e
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(56.9055pt, 483.69684pt, 56.90553pt)
-* v-part:(T,H,B)=(56.9055pt, 731.23582pt, 56.90552pt)
+* h-part:(L,W,R)=(34.1433pt, 529.22125pt, 34.14333pt)
+* v-part:(T,H,B)=(22.76219pt, 776.76022pt, 45.52443pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=483.69684pt
-* \textheight=731.23582pt
-* \oddsidemargin=-15.36449pt
-* \evensidemargin=-15.36449pt
-* \topmargin=-52.36449pt
+* \textwidth=529.22125pt
+* \textheight=776.76022pt
+* \oddsidemargin=-38.1267pt
+* \evensidemargin=-38.1267pt
+* \topmargin=-86.5078pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -397,49 +420,114 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
+
+Overfull \hbox (18.38458pt too wide) in paragraph at lines 37--38
+[] []\OT1/cmr/bx/n/12 Re-pro-ducibil-ity of the .ip files[]\OT1/cmr/m/n/12 In b
+oth cases, the de-fault ran-dom num-ber con-trol 0.727343232450560E+14
+ []
+
+
+LaTeX Warning: Reference `Ex1CrxSx' on page 1 undefined on input line 39.
+
+
+LaTeX Warning: Reference `Ex3CrxSx' on page 1 undefined on input line 39.
+
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5]
-<ConfidenceInterval.png, id=29, 462.528pt x 346.896pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Reference `Ex1NumHist' on page 2 undefined on input line 56.
+
+
+LaTeX Warning: Reference `Watt' on page 2 undefined on input line 58.
+
+[2]
+
+LaTeX Warning: Reference `Ex3NumHist' on page 3 undefined on input line 84.
+
+
+LaTeX Warning: Reference `Watt' on page 3 undefined on input line 99.
+
+
+LaTeX Warning: Reference `Watt' on page 3 undefined on input line 99.
+
+
+LaTeX Warning: Reference `Watt' on page 3 undefined on input line 111.
+
+[3]
+Overfull \hbox (7.04808pt too wide) in paragraph at lines 147--161
+ [][] 
+ []
+
+
+Overfull \hbox (12.37863pt too wide) in paragraph at lines 165--168
+\OT1/cmr/m/n/12 ``\OT1/cmtt/m/n/12 the final estimated combined collision/absor
+ption/track-length keff = 1.01798 with
+ []
+
+
+Overfull \hbox (18.8537pt too wide) in paragraph at lines 165--168
+\OT1/cmtt/m/n/12 the estimated 68, 95, & 99 percent keff confidence intervals a
+re 1.01752 to 1.01843,
+ []
+
+[4]
+
+LaTeX Warning: Reference `ConfInt' on page 5 undefined on input line 209.
+
+<ConfidenceInterval.png, id=25, 462.528pt x 346.896pt>
 File: ConfidenceInterval.png Graphic file (type png)
 <use ConfidenceInterval.png>
-Package pdftex.def Info: ConfidenceInterval.png  used on input line 153.
+Package pdftex.def Info: ConfidenceInterval.png  used on input line 213.
 (pdftex.def)             Requested size: 189.6871pt x 142.26378pt.
+[5]
 <Ex1CrxSx.png, id=31, 654.445pt x 422.57875pt>
 File: Ex1CrxSx.png Graphic file (type png)
 <use Ex1CrxSx.png>
-Package pdftex.def Info: Ex1CrxSx.png  used on input line 163.
+Package pdftex.def Info: Ex1CrxSx.png  used on input line 223.
 (pdftex.def)             Requested size: 282.01501pt x 182.09746pt.
 <Ex3CrxSx.png, id=32, 1355.0625pt x 646.415pt>
 File: Ex3CrxSx.png Graphic file (type png)
 <use Ex3CrxSx.png>
-Package pdftex.def Info: Ex3CrxSx.png  used on input line 170.
+Package pdftex.def Info: Ex3CrxSx.png  used on input line 230.
 (pdftex.def)             Requested size: 381.71pt x 182.09746pt.
- [6 <./ConfidenceInterval.png> <./Ex1CrxSx.png>] [7 <./Ex3CrxSx.png>] (./MCNPRe
-port.aux) ) 
+<WattSpectrum.png, id=33, 848.16875pt x 227.85126pt>
+File: WattSpectrum.png Graphic file (type png)
+<use WattSpectrum.png>
+Package pdftex.def Info: WattSpectrum.png  used on input line 237.
+(pdftex.def)             Requested size: 317.75189pt x 85.35826pt.
+ [6 <./ConfidenceInterval.png> <./Ex1CrxSx.png> <./Ex3CrxSx.png>] [7 <./WattSpe
+ctrum.png>] (./MCNPReport.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4870 strings out of 494880
- 71317 string characters out of 6179600
- 142906 words of memory out of 5000000
- 8131 multiletter control sequences out of 15000+600000
+ 5317 strings out of 494880
+ 77410 string characters out of 6179600
+ 150943 words of memory out of 5000000
+ 8565 multiletter control sequences out of 15000+600000
  10027 words of font info for 36 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 41i,9n,39p,917b,312s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/ocean/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/tcr
-m1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
-2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmtt12.pfb>
-Output written on MCNPReport.pdf (7 pages, 183373 bytes).
+ 41i,11n,39p,918b,366s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/ocean/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600
+pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmtt12.pfb>
+Output written on MCNPReport.pdf (7 pages, 206052 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
+ 82 PDF objects out of 1000 (max. 8388607)
  53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
