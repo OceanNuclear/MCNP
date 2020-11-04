@@ -1,7 +1,7 @@
 %\nonstopmode
 \hbadness=100000
-\documentclass[a4paper, 12pt]{article}
-\usepackage{verbatim,amsmath,graphicx,geometry,textcomp,url,caption,float,titlesec,setspace,paralist}
+\documentclass[a4paper, 11pt]{article}
+\usepackage{verbatim,amsmath,graphicx,geometry,textcomp,url,caption,float,titlesec,setspace,paralist,booktabs,multirow}
 \geometry{ a4paper, total={186mm,273mm}, left=12mm, top=8mm}
 %setting spacing
 \titlespacing{\section}{0pt}{0.1cm}{0cm}
@@ -16,18 +16,17 @@
 \definecolor{func}{rgb}{0.76, 0.6, 0.42}
 \begin{document}
 \begin{center}
-MCNP Report										\\
-Ocean Wong (Hoi Yeung Wong)						\\
-MSc Physics and Technology of Nuclear Reactors	\\
-2019-03-09 										\\
-\textbf{Abstract}
-Abstract yet to be written
-\end{center}
+MSc Physics and Technology of Nuclear Reactors,	MCNP Report\\
+Ocean Wong (Hoi Yeung Wong), University of Birmingham,	April 2019		\\
+\textbf{Abstract}								\\
+In Exercise 1 a simple cuboidal water bath with a point fission source of $10^{10} s^{-1}$ neutrons was modelled. The average flux was recorded as $(3.44882\pm0.00344882) \times 10^{7} s^{-1}$ on the surface nearest to the source (base of the tank) and $(2.509440\pm0.00677549) \times 10^{6} s^{-1}$ on lateral sides of the tank furthest from the source.
 
+In Exercise 3 a cubic water bath with five enriched uranium cylinders was found to have a $\text{k}_{\text{eff}} = 1.01798 \pm 0.00046$ when e=20\%; in order to keep the set-up safe, defined by $\text{k}_{\text{eff}} <0.8$ when e=25\%, $\ge 0.139804$ wt.\% boron is required in the water.
+\end{center}
 \section{Introduction}
 See the Appendices for the geometries and materials definitions of the following problems.
 \subsection{Exercise 1: Simple Neutron Source in a Bucket of Water}
-A narrow, stainless steel water bath is subjected to a point source of (uranium thermal fission) neutron near it's bottom. The neutron fluences and spectra measured just outside each of the faces of the neutron bath are examined. 
+A narrow, stainless steel water bath is subjected to a point source of (uranium thermal fission) neutron near its bottom. The neutron fluences and spectra measured just outside each of the faces of the neutron bath are examined. 
 \subsection{Exercise 3: Criticality}
 A square water bath with four short, fully-submerged enriched Uranium cylinders, arranged in a ``plus" sign, is shown to be supercritical when moderated by pure water, even when it is only enriched to e=20\%. The aim of the exercise is to find the minimum degree of boronation in the water required to keep the system subcritical to $\text{k}_{\text{eff}}<0.8$ when the cylinders are enriched to e=25\%.
 
@@ -35,140 +34,119 @@ A square water bath with four short, fully-submerged enriched Uranium cylinders,
 \subsection{Technicalities for reproducibility}
 \paragraph{Software and hardware specifications\indent} For the following exercise all cross-section data were retrieved from the ENDL92 library (the most recently updated library available, acquired by Lawrence Livermore National Laboratory) and simulated in MCNP 4C2, ran on the phymat server of University of Birmingham School of Physics and Astronomy, which is a Scientific Linux 7.3 (Nitrogen) system with 16 CPU's (Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz) (though only 1 CPU is used at a time).
 \paragraph{Reproducibility of the .ip files} In both cases, the default random number control 0.727343232450560E+14 was used, and the centre of the stainless steel tank's exterior surfaces was placed at the origin.
-\paragraph{Material definition} The isotopic composition of water was retrieved from [4]; the elemental composition of other materials were provided by the problem sheet, and were all assumed to have the same isotopic compositions as naturally occuring elements stored by the default AAA=000 option in the ZAIDs identifier. See the tables in the Appendix for more.
-\paragraph{Geometry definitions\indent} The geometry for exercise 1 and 3 were set to the dimensions as required by the problem sheet; the cross-sections of their geometries are shown in Figure \ref{Ex1CrxSx} and \ref{Ex3CrxSx} in the Appendices.
+\paragraph{Material definition} The isotopic composition of water was retrieved from [4]; the elemental composition of other materials were provided by the problem sheet, and were all assumed to have the same isotopic compositions as naturally occuring elements stored by the default AAA=000 option in the ZAIDs identifier. See the tables in the Appendices for more.
+\paragraph{Geometry definitions\indent} The geometries for exercise 1 and 3 were set to the dimensions as required by the problem sheet; the cross-sections of their geometries are shown in Figure \ref{Ex1CrxSx} and \ref{Ex3CrxSx} in the Appendices. Note that all voids within the re-entrant surfaces were allowed to have neutron importance =1 to allow re-entry of the neutrons into solid components without ``killing" the neutron.
 \paragraph{Energy cutoff\indent}
 Energy cutoff is not applied so that very slow (thermalized) neutrons are allowed to interact and let further reactions take place.
 
 \subsection{Exercise 1}
 \paragraph{Tallies\indent}
-Therefore for exercise 1, the lower bound of the $1^{st}$ bin of each tally is E=0.
+Therefore for exercise 1, the lower bound of the 1\textsuperscript{st} bin of each tally is E=0.
 
 The temperature of the cross-section data in databse 42(ENDL92) were acrquired at T=300K, as shown in 91-99, and is subsequently adjusted down to 20.4 ${}^{o}$C ($2.53 \times 10^{-8}$MeV) when running the simulation. Either way, thermal effects should significantly affect that falls into the first 3 energy bins. ($0$-$10^{-9}$MeV, $10^{-9}$-$10^{-8}$MeV,$10^{-8}$-$10^{-7}$MeV respectively).
 
 The tally probability distributions (histograms shown in table 161) all show reasonably Gaussian distributions (and the cumulative probability distributions all show reasonably sigmoidal distributions) without the majority of the counts falling into a single bin; therefore there is no inherent need for using a finer spacing; but for the purpose of visualizing the spectrum with a higher resolution, a finer group structure with trifolded bin density (still logarithmically spaced, 3 bins per decade) was used.
 
-Even when the spacing of energy groups is trisected in this manner, the $1^{st}$ bin ($0$ to $1\times 10^{-9}$ MeV) is still the bin that receives the least counts. In a real problem this would have been merged with the $2^{nd}$ bin to form a single, larger bin to tally up all the completely thermalized neutrons, increasing its count so that it converges to a precise enough value in a shorter CPU time; but according to the constraint of the problem, there must be one bin with ${10^{-9}}$ MeV as the upper limit. Therefore the only option left is to increase the number of histories such that the results of this bin converges.
+Even when the spacing of energy groups is trisected in this manner, the 1\textsuperscript{st} bin ($0$ to $1\times 10^{-9}$ MeV) is still the bin that receives the least counts. In a real problem this would have been merged with the $2^{nd}$ bin to form a single, larger bin to tally up all the completely thermalized neutrons, increasing its count so that it converges to a precise enough value in a shorter CPU time; but according to the constraint of the problem, there must be one bin with ${10^{-9}}$ MeV as the upper limit. Therefore the only option left is to increase the number of histories such that the results of this bin converges.
 
 \paragraph{Number of particles}
-Due to the large cross section in the thermal region which increases as the neutron slows, very few neutrons of these energies can travel far enough to be counted by these surface flux tallies. Therefore this bin always have the largest relative errors among all bins. To ensure that no bins have relative error larger than 0.10 such that the results are reliable, enough histories must be ran to allow the $1^{st}$ energy bins in all 3 tallies to be filled sufficiently, in addition to passing all 10 statistical checks.
+Due to the large cross section in the thermal region which increases as the neutron slows, very few neutrons of these energies can travel far enough to be counted by these surface flux tallies. Therefore this bin always have the largest relative errors among all bins. To ensure that no bins have relative error larger than 0.10 such that the results are reliable, enough histories must be ran to allow the 1\textsuperscript{st} energy bins in all 3 tallies to be filled sufficiently, in addition to passing all 10 statistical checks.
 
 The number of particles required is discussed in detail in section \ref{Ex1NumHist}.
 
-\paragraph{Source location\indent}By examining the first 50 particles(using \texttt{PRINT 110}), the source was confirmed to be a point souce 2cm above the centre of the bottom of the tank's internal surface; and the majority of the particles have initial energy $E<4$ MeV as expected when they are distributed according to the Watt spectrum for neutron generated by ${}^{235}U$+n(thermal) (See the Watt spectrum in Figure \ref{Watt}).
+\paragraph{Source location\indent}By examining the first 50 particles(using \texttt{PRINT 110}), the source was confirmed to be an isotropic point souce 2cm above the centre of the bottom of the tank's internal surface; and the majority of the particles have initial energy $E<4$ MeV as expected when they are distributed according to the Watt spectrum for neutron generated by ${}^{235}U$+n(thermal) (See the Watt spectrum in Figure \ref{Watt}).
 
 \subsection{Exercise 3}
 \paragraph{Note on cross-section library\indent} There is no delayed neutron cross section data available in ENDL92 (or any other nuclear databases available on phymat), so the simulation may deviate from reality slightly. There is no workaround for this issue; but one can assume, for the purpose of this simulation, that a cross-section database without delayed neutron cross-section should be accurate enough.
 
-\paragraph{Geometry definition\indent} It is easier to define the geometry if a sphere was used to define the graveyard (void) outside (where neutron importance=0); but a cuboidal geometry was chosen instead to allow the surface flux detectors (F2) to tally particles passing through lateral surfaces separately from particles passing through horizontal surfaces.
+\paragraph{Geometry definition\indent} It is easier to define the geometry if a sphere was used to define the graveyard (void) outside (where neutron importance=0); but a cuboidal geometry was chosen instead to allow the surface flux detectors (F2) to tally particles passing through lateral surfaces separately from particles passing through the horizontal surface.
 
-All components except the concrete floor had the same neutron importance. Neutron importance in concrete started off at 1 but was subsequently reduced to 0.1 such that the simulation runs faster by ignoring particles that enter the concrete, since they will otherwise undergo a lot of collision (each requiring a lot of CPU time) to slow down, without causing multiplication.
+All components except the concrete floor had the same neutron importance. Neutron importance in concrete was initially set at 1 but was subsequently reduced to 0.1 such that the simulation runs faster by ignoring particles that enter the concrete, since they will otherwise undergo a lot of collisions (each adding to the computing time) to slow down, without reflecting back into the U cylinders to cause more multiplication.
 
-If the mean free path to absorption $\lambda_{\text{abs}}$ is known, the dimension of the concrete floor can be chosen to extend from the stainless steel tank by $N\lambda_{\text{abs}}$ where N is some arbitrary threshold factor (e.g. 3).
-However only the mean free path to collision for neutron is found on a cell particle activity table (using \texttt{PRINT 126}). Since concrete is only a weakly neutron-absorbing medium, this \emph{cannot} be used as the proxy for $\lambda_{\text{abs}}$. 
+If the mean free path to absorption $\lambda_{\text{abs}}$ is known, the dimension of the concrete floor can be chosen to extend from the stainless steel tank by $N\lambda_{\text{abs}}$ where N is some arbitrary threshold factor (e.g. N= 3).
+However only the mean free path to \emph{collision} for neutron is found on a cell particle activity table (using \texttt{PRINT 126}). Since concrete is only a weakly neutron-absorbing medium, this \emph{cannot} be used as the proxy for $\lambda_{\text{abs}}$. 
 Instead the fraction of neutrons escaping the concrete block into the void was measured. This was done by comparing the number of neutrons travelling from the concrete to the void region (where neutron importance = 0) (measured with a surface flux tally card) to the neutron population in the concrete. The quantity ``population" instead of ``tracks entering" was used because the latter re-counts particles re-entering the same cell, thus the former is a more accurate measurement of how many distinct neutrons have been present in the concrete block. The simulation is considered accurate when the ratio of these two numbers is less than 1\%, i.e. $<$ 1\% of the neutrons entering the concrete were ``killed" (by entering the void region) instead of being absorbed in the concrete/reflected back towards the tank. The dimension of the concrete block was increased until this ratio is lower than 1\%.
 
-This resulted in a concrete floor block of 160.4cm in the x- and y-directions and 50 cm in the z-direction, resulting in 0.21621209\%  and 0.04494092\% of neutrons escaping through the lateral planes and the horizontal plane (plane separating the concrete block from the void below) respectively. This was used as the final dimension for the concrete block.
+This resulted in a concrete floor block of 160.4cm in the x- and the y-directions and 50 cm in the z-direction, resulting in 0.21621209\%  and 0.04494092\% of neutrons escaping through the lateral planes and the horizontal plane (plane separating the concrete block from the void below) respectively. Therefore this was used as the final dimensions for the concrete block.
 
 \paragraph{Source definition\indent}
-Using the \texttt{KSRC} card a ``generic Watt spectrum"[1] of neutrons were created at the center points of each cylinder.
+Using the \texttt{KSRC} card a ``generic Watt spectrum"[1] of neutrons were created at the centre points of each cylinder.
 \\This allowed for very fast convergence of the results, where the $\text{k}_{\text{eff}}$ value settled down to a stable value in less than 10 generations. The $\text{k}_{\text{eff}}$ estimation started after that.
 
-The alternatives of using an \texttt{SDEF} card with a cookie cutter(\texttt{CCC}) rejection/\texttt{CEL} rejection OR 5 uniform cylindrical sources overlayed onto cell 11-15 (all the uranium cylinder cells) were attempted, but were not applied in the end because it is likely to distribute neutrons close to the non-re-entrant surfaces where they can escape, reducing the effectiveness of the source and potentially increasing the number of cycles that needs to be skipped. [2]
+The alternatives of using an \texttt{SDEF} card with a cookie cutter(\texttt{CCC}) rejection/\texttt{CEL} rejection, and using 5 uniform cylindrical sources overlayed onto cell 11-15 (all the uranium cylinder cells) were attempted, but were not applied in the end because it is likely to distribute neutrons close to the non-re-entrant surfaces where they can escape, reducing the effectiveness of the source and potentially increasing the number of cycles that needs to be skipped. [2]
 
 \paragraph{Choices of number of particles and number of cycles\indent}
-3000 particles per cycle were shown to give a $\text{k}_{\text{eff}}$ that converges in $\approx$10 cycles; 5000 particles per cycles were shown to give faster convergence of $\text{k}_{\text{eff}}$ value (in $<$ 5 cycles), but further increase in number of particles per cycles to 8000 did not show significant improvemence in speed of convergence. Therefore the number of particles were chosen to be 5000, and to be servative, the first 10 cycles were skipped (ikz=10).
+3000 particles per cycle were shown to give a $\text{k}_{\text{eff}}$ that converges in $\approx$10 cycles; 5000 particles per cycles were shown to give faster convergence of $\text{k}_{\text{eff}}$ value (in $<$ 5 cycles), but further increase in number of particles per cycles to 8000 did not show significant improvemence in speed of convergence. Therefore the number of particles were chosen to be 5000, and to be servative, the first 10 cycles were skipped (IKZ=10).
 
-At 5000 particles per cycle, $\text{k}_{\text{eff}}$ was shown to converge sufficiently by the 500${}^{th}$ cycle; further increase in total number of cycles yields deminishing marginal increase in precision at the cost of increasing the computing time, asymptotically approaching 0; thus only 500 cycles were ran, requiring 10.27 minutes of computing time.
+At 5000 particles per cycle, $\text{k}_{\text{eff}}$ was shown to converge sufficiently by the 500\textsuperscript{th} cycle; further increase in total number of cycles yields deminishing marginal increase in precision at the cost of increasing the computing time, asymptotically approaching 0; thus only 500 cycles were ran, requiring 10.27 minutes of computing time.
 
-The number of cycles to run per simulation were later changed when the $\text{k}_{\text{eff}}$ changed. For details see section \ref{Ex3NumHist}.
+The number of cycles to run per simulation were later changed when the $\text{k}_{\text{eff}}$ changed. For details see section \ref{Ex3NumHist}. As for the initial guess of keff it was kept at 1 for all cases. (RKK=1)
 
-\paragraph{Alteration to material definition\indent} For ease of changing the input file, when attempting to find a concentration of boron that gives a solution, the excess boron is added \emph{on top of} the existing weight fractions for hydrogen and oxygen, the latter two already summed to unity. This results in a weight fraction of boronated water with larger-than-unity, unnormalized weight fraction; and only this excess weight fraction of boron was changed between iterations, allowing MCNP to calculated the normalized the weight fraction of boron in water before running each simulation. The resulting, correctly normalized weight fraction of boron is printed in table 40.
+\paragraph{Alteration to the material definition\indent} For ease of changing the input file, when attempting to find a concentration of boron that gives a solution, the excess boron is added \emph{on top of} the existing weight fractions for hydrogen and oxygen, the latter two already summed to unity. This results in a weight fraction of boronated water with larger-than-unity, unnormalized weight fraction; and only this excess weight fraction of boron was changed between iterations, allowing MCNP to calculated the normalized the weight fraction of boron in water before running each simulation. The resulting, correctly normalized weight fraction of boron is printed in table 40.
 
 \section{Result}
 \subsection{Exercise 1}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{cccc}
-		tally (surface(s)) & 12 (surface (21 22)) & 22 (surface (23 24)) & 32 (surface 25)	\\
-		average energy (keV)  &609.969 & 99.755  & 726.59 \\
-		average energy (keV)  &626.966 & 104.393 & 731.702
-	\end{tabular}
-	\caption{Arithmatic mean of the energy of neutrons recorded in the various tallies.
-	For comparison the Watt spectrum used reaches maximum emission probability density at 0.769 MeV (Figure \ref{Watt}).
-	}\label{Ex1meanE}
-\end{table}
-[dividing by the difference in upper and lower class boundaries so that it gives number density instead?]
-\\*Insert spectrum (histograms) of the 3 tallies
-\\*plot variation of mean (using data from all)
-\\*plot variation of error(using data from all)
-\\*plot variation of VoV (using data from all)
-\\*plot variation of fom (using data from all)
-\subsection{Exercise 3}
-keff variation plot by cycle number and \\* confidence interval
+See table \ref{Ex1Fluences} below for the fluences on each surface. In the Appendices, figure \ref{TalliesHistograms} shows the spectra of neutron energies at the three tallying surfaces; The tally fluctuation chart is plotted in Figure~\ref{Ex1TallyFluc} (and Figure \ref{TalliesHistogramsLin} for the same plot with a linear y-axis scale). Additionally the figure of merit variation is plotted on Figure \ref{fomEx1}.
+\subsection{Exercise 3} \label{Ex3Result}
+The k\textsubscript{eff} variation by cycle is plotted on Figure \ref{keffvar}, including the 1 $\sigma$ confidence interval. In particular, the k\textsubscript{eff} for 20wt.\% enriched uranium with no boron addition is reported (in line 4174-4178 of the output file) as 
+\\ ``\texttt{the final estimated combined collision/absorption/track-length keff = 1.01798 with anestimated standard deviation of 0.00046}
+\\ \texttt{the estimated 68, 95, \& 99 percent keff confidence intervals are 1.01752 to 1.01843, 1.01707 to 1.01888, and 1.01677 to 1.01918}"
+
+As for the case where the uranium is enriched to e=25\% and a minimum boron concentration of 0.139804wt.\% is added to the water, to keep k\textsubscript{eff}$<$0.8, the following result: \\``\texttt{keff = 0.79766 with an estimated standard deviation of 0.00033}\\\texttt{the estimated 68, 95, \& 99 percent keff confidence intervals are 0.79732 to 0.79799, 0.79699 to 0.79832, and 0.79677 to 0.79854}" is reported.
+
+The variation of k\textsubscript{eff} wrt. Boron concentration is given in table \ref{kvarTab} in the Appendices.
 
 \section{Analysis and discussion}
 Note:from the Watt spectrum (Figure \ref{Watt}) that there is a small but non-zero probability of getting neutrons of very high energy. This leads to some warning messages when the occassional particle scores above the upper limit of the largest tallying bin in Exercise 1.
 
 \subsection{Answer to numbered questions for Exercise 1}\label{Ex1Ans}
 \begin{compactenum}
-	\item These results has limited reliability because the last statistical check (pdf slope=decreasing?) for tally 22 and 32 were not passed, meaning that some reactions are not sampled enough for us to be confidence about the frequencies of their occurance.
-	\\Additionally, some bins in the PDF are empty (seen table 161 of tally 22) suggesting that insufficient number of neutrons is sampled to approximate a continuous distribution.
-	\item Using the notation $\Phi_i$ = fluence calculated for the i${}^{th}$ energy bin \emph{per history},
-	\\N = number of histories = 20,000,
+	\item For the 20,000 particles case, its results have limited reliability because the last statistical check (pdf slope=decreasing?) for tally 22 and 32 were not passed, meaning that some reactions are not sampled enough for us to be confidence about the frequencies of their occurance. Additionally, some bins in the PDF are empty (seen in table 161 of tally 22) suggesting that insufficient number of neutrons is sampled to approximate a continuous distribution.
+	\\However, for the 2,800,000 particle case, the results are reliable as they have passed all statistical tests.
+	\\Regardless, the one should be aware that these results are the fluences AVERAGED over the entire tallying surface. The centre points of each surface are subjected to a higher-than-average fluence while the corners experiences a lower-than-average fluence.
+	
+	\item Using the notation of
+	\\$\Phi_i$ = fluence calculated for the i\textsuperscript{th} energy bin \emph{per history}, (nps) = number of histories
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{cccc}
-			tally (surface(s)) & 12 (surface (21 22)) & 22 (surface (23 24)) & 32 (surface 25)	\\
-			fluence (cm$^{-2}$) &14.9502  & 4.79592 & 68.4946 \\
-			fluence (cm$^{-2}$) &15.36682 & 5.01888 & 68.9764
+			tally (surface(s))            & 12 (long sides) & 22 (short sides) & 32 (base)\\
+			fluence (cm$^{-2}$) for nps= 20000   & $15.0\pm 0.2$  & $4.80\pm 0.16$ & $68.5\pm 0.8$ \\
+			fluence (cm$^{-2}$) for nps= 2800000 &$ 2151.4\pm2.2$ & $702.6\pm1.9$ & $9656.7 \pm9.7 $
 		\end{tabular}
-		\caption{ The total fluences $\Phi$ are simply calculated by formula $N \sum\limits_i (\Phi_i)$ , unit = 1/cm${}^{2}$
+		\caption{ The total fluences $\Phi$ after the whole simulations are simply calculated by formula $\Phi= N \sum\limits_i (\Phi_i)$, unit = 1/cm${}^{2}$
 		}\label{Ex1Fluences}
 	\end{table}
-	\item Both the spectra and the mean energy of the tallies reflects that the hardness of neutron spectrum decreases as follows: hardness at base (Tally 32)$>$long side (Tally 12)$>$short side (Tally 22).
-	This is because distance of them increases in that order.
-	\\*The ratio of neutron flux in the slow/Cadmium region ($<$0.01 MeV) to neutron flux in the resonance regions ($>$0.01MeV) builds up since the latter gets slowed down/captured by the resonance peaks much faster than the rate of consumption of the former, as they travel through the material.
-	\\More neutrons can penetrate the base at the energy its creation energy without being moderated by the water; therefore the $1^{st}$ bin of tally 32is more filled than that of tally 12. 
-	\\The fluence also decrease in the same order as a result of the inverse square law and the capture of neutron by water when it has to travel through a longer distance in water.
+	\item In both the nps=20,000 and nps=2,800,000 case, the spectra and the mean energy of the tallies reflects that the hardness of neutron spectrum decreases with distance: hardness at base (Tally 32)$>$long side (Tally 12)$>$short side (Tally 22), as can be seen from Figure \ref{TalliesHistograms} and \ref{TalliesHistogramsLin}.
+
+	There is a noticable increase in number of thermalized neutrons with $<10^{-7}$MeV=0.1MeV as distance increases, while the prompt neutrons with energy$>0.1$MeV decreases. This is because neutrons gets slowed down/captured after travelling through more water; and the slower it is the more likely that it will be removed from the current energy group, as shown by the total interaction cross sections plotted in Figure \ref{sigma}. This effect dominates until it reaches thermal temperature, where up-scattering occurs.
+	\\More neutrons can penetrate the base at the energy its creation energy without being moderated by the water; therefore the 1\textsuperscript{st} bin of tally 32 is more filled than that of tally 12. 
+	\\The fluence also decrease in the same order as a result of the inverse square law and the capture of neutron by water when they have to travel through a longer distance in water.
 \end{compactenum}
-After this I need to compare the 280000 histories with this.(\\*Discuss these results in relation to the three questions posed above?)
 \subsubsection{Number of histories required to converge}\label{Ex1NumHist}
-Even after running 500,000 histories, the relative error for this $1^{st}$ bin remains high ($0.2599$, $0.4236$, $0.3681$, for tally 12, 22, and 32, respectively) despite the fact that all other statistical checks were passed after running 500,000 histories, and the fom has alreay converged to a reasonably stable asymptotic limit.
+Even after running 500,000 histories, the relative error for this 1\textsuperscript{st} bin remains high ($0.2599$, $0.4236$, $0.3681$, for tally 12, 22, and 32, respectively) despite the fact that all other statistical checks were passed after running 500,000 histories, and the FoM has alreay converged to a reasonably stable asymptotic limit.
 
-If one does not care for the accuracy of the $1^{st}$ bin, then running 2,800,000 histories is sufficient, as it passess all statistical test, and produces a sufficient number of dancing, in a reasonable computing time of 1.98 minutes. However, 18,000,000 histories are required for the convergence of all of the $1^{st}$ bins, requiring 12.78 minutes of coputing time, which is quite long for a simple problem.
+If one does not care for the accuracy of the 1\textsuperscript{st} bin, then running 2,800,000 histories is sufficient, as it passess all statistical test, and produces a sufficient number of dancing, in a reasonable computing time of 1.98 minutes; and all bins (except the first) will have fractional errors $< 0.1$ after this many histories. Therefore the results from that simulation (nps=2,800,000) was used for plotting all graphs in the Appendices.
 
-Additionally, even after 18,000,000 histories, only a limited number of neutrons arrive at the surfaces for tally 22, leading to a fluctuating Figure of Merit being recorded, resulting in what appears to be a decreasing trend in FoM the last half of the simulation, missing the last statistical check. Therefore the result of this bin is less reliable than the result of the rest of the bins concerned.
+However, 18,000,000 histories are required for the convergence of all of the 1\textsuperscript{st} bins, requiring 12.78 minutes of coputing time, which is quite long for a simple problem. And even after 18,000,000 histories, only a limited number of neutrons arrive at the surfaces for tally 22, leading to a fluctuating Figure of Merit being recorded, resulting in what appears to be a decreasing trend in FoM the last half of the simulation, missing the last statistical check. Therefore the result of this bin is less reliable than the result of the rest of the bins concerned.
 
 \subsubsection{$10^{10}$ n./s conversion factor}
 	If this simulation is meant to represent a $10^{10} s^{-1}$ neurton source, then a multiplication factor of = $ 10^{10} s^{-1}$ should be multiplied onto the normalized neutron flux values given in the output file, giving
 \begin{table}[H]
 	\centering
-	\begin{tabular}{c|ccc}
-		tally (surface(s)) & 12 (surfaces (21 22)) & 22 (surfaces (23 24)) & 32 (surface 25)	\\
-		\hline
-		Flux (${cm}^{-2}s^{-1}$) extrapolated from \\
-		the 20,000 nps simulation     & $7475100 $ & $2397960 $ & $34247300 $ \\
-		\hline
-		\textbf{Flux (${cm}^{-2}s^{-1}$) extrapolated from } \\*
-		\textbf{the 2,800,000 nps simulation} & \textbf{7683410}& \textbf{2509440} & \textbf{34488200} \\
-		\hline
-		Flux (${cm}^{-2}s^{-1}$) extrapolated from \\
-		the 18,000,000 nps simulation & $7680680 $ & $2505410 $ & $34563400 $
+	\begin{tabular}{cccc}
+		tally (surface(s)) & 12 (long sides of the tank) & 22 (short sides of the tank) & 32 (base of the tank)	\\
+		Flux (${cm}^{-2}s^{-1}$) & $7683410\pm7683$& $2509440\pm6775$ & $34488200\pm34488.2$
 	\end{tabular}
-	\caption{Flux expected from a $10^{10} s^{-1}$ point source of neutron placed at the same location, predicted from the 20,000 neutrons, 2,800,000 neutrons, and 18,000,000 neutrons simulations respectively
-	\\* Say something about how they don't deviate from each other.
-	}\label{Ex1FluxCalc}
+	\caption{Flux expected from a $10^{10} s^{-1}$ point source of neutron placed at the same location, predicted from the 2,800,000 neutrons simulation. See table \ref{Ex1FluxCalc} in the Appendices for the full table including the fluences predicted using the other two simulations' results as well.
+	}\label{Ex1FluxCalc_small}
 \end{table}
 \subsection{Answer to numbered questions for Exercise 3}\label{Ex3Ans}
 \begin{compactenum}
-	\item The final $\text{k}_{\text{eff}}$ estimate and its standard deviation is reported (in line 4174-4178 of the output file) for 20wt.\% enriched uranium with no boron addition as follows:	
-	\\ ``\texttt{the final estimated combined collision/absorption/track-length keff = 1.01798 with an estimated standard deviation of 0.00046}
-	\\ \texttt{the estimated 68, 95, \& 99 percent keff confidence intervals are 1.01752 to 1.01843, 1.01707 to 1.01888, and 1.01677 to 1.01918}"
+	\item The final $\text{k}_{\text{eff}}$ estimate and its standard deviation is reported for 20wt.\% enriched uranium with no boron addition as $1.01798 \pm 0.00046$ (See section\ref{Ex3Result})
 
-	The average combined $\text{k}_{\text{eff}}$ was observed to decrease slightly at the beginning, converging onto and the value of 1.01798, and then stablize around this value, with decreasing standard deviation as the simulation progresses.
+	The average combined $\text{k}_{\text{eff}}$ (blue line (c/a/t) in the Figure \ref{keffvar}) was observed to decrease slightly at the beginning, converging onto and the value of 1.01798, and then stablize around this value, with decreasing standard deviation as the simulation progresses and sample size increase.
 
-	Refer to the \\*$\text{k}_{\text{eff}}$ variation wrt. cycle number above.
 	\item The final results of $\text{k}_{\text{eff}} = 1.01798 \pm 0.00046$ is fairly reliable, considering the following items, as suggested by [3]:
 	\begin{compactitem}
 		\item all cells with fissile isotopes (i.e. all U cylinders) were sampled
@@ -179,7 +157,7 @@ Additionally, even after 18,000,000 histories, only a limited number of neutrons
 	\end{compactitem}
 	and lastly,
 	\begin{compactitem}
-		\item the lack of delayed neutron cross section library should only make an insignificant difference to the final $\text{k}_{\text{eff}}$ because of their small yield
+		\item the lack of delayed neutron cross section libraries should only make an insignificant difference to the final $\text{k}_{\text{eff}}$ because of their small yield.
 	\end{compactitem}
 	\item when assessing the safety of the subcritical set-up, one should also account for
 	\begin{compactitem}
@@ -190,8 +168,8 @@ Additionally, even after 18,000,000 histories, only a limited number of neutrons
 		\item chemical interaction of various materials inside the set-up which may change the distribution of materials, e.g. corrosion may lead to leakage of water which may have acted as an absorber.
 	\end{compactitem}
 \end{compactenum}
-To allow room for such uncertainties, the simulation was re-done using a more conservative set-up through using a higher enrichment of uranium to simulate breeding of more fissile species.
-As expected, the $\text{k}_{\text{eff}}$ increased up to $1.06627 \pm 0.00045$ when the enrichment increased up to 25\%, since more neutrons are absorbed by fissile atom causing fission. However an addition of boron at $\approx$ 0.3wt.\% (i.e. 3000ppm, similar concentration to those found in PWR) was already sufficient to decrease the $\text{k}_{\text{eff}}$ down to $0.76681 \pm 0.00063$.
+To allow room for such uncertainties, the simulation was re-done using a more conservative set-up through using a higher enrichment of uranium in all cylinders to simulate breeding of more fissile species. (A more accurate but unconservative approach is to raise the enrichment fraction for the central cylinder only.)
+As expected, the $\text{k}_{\text{eff}}$ increased up to $1.06627 \pm 0.00045$ when the enrichment increased up to 25\%, since more neutrons are absorbed by fissile atoms causing fission. However an addition of boron at $\approx$ 0.3wt.\% (i.e. 3000ppm, similar magnitude to those found in PWRs) was already sufficient to decrease the $\text{k}_{\text{eff}}$ down to $0.76681 \pm 0.00063$.
 
 Subsequent iterative simulations with decreasing boron concentration shows that
 \begin{compactitem}\label{Ex3NumHist}
@@ -204,56 +182,161 @@ This leads to the decisions to
 	\item doubling the number of particles per cycle to 10,000 to counteract the increased uncertainty introduced by the absorbing power of boron
 	\item increase the number of cycle skipped at the beginning to 100 to account for the slower convergence due to the increased cycle-to-cycle fluctuation in $\text{k}_{\text{eff}}$
 \end{compactitem}
-Which still leads to a acceptable computing time of $<$ 8 minutes per simulation.
+Which still leads to an acceptable computing time of $<$ 8 minutes per simulation.
 
-The 3 $\sigma$ envelope of $\text{k}_{\text{eff}}$ was found to remain under 0.8 when boron concentration $>1.39804$ppm (input file's unnormalized weight fraction of boron =0.14\% times the water's weight fraction); any higher (i.e. at $1.29831$ppm) and the 3 $\sigma$ confidence interval begins to cross over the $\text{k}_{\text{eff}}>0.8$ threshold, i.e. there will be a larger than $0.0675 \%$ chance of its $\text{k}_{\text{eff}} >0.8$ (See Figure \ref{ConfInt}).
+The 3 $\sigma$ envelope of $\text{k}_{\text{eff}}$ was found to remain under 0.8 when boron concentration $>1398.04$ppm (input file's unnormalized weight fraction of boron =0.14\% times the water's weight fraction), giving k\textsubscript{eff}=0.79766, 3 $\sigma$ envelope ranges from 0.79677 to 0.79854; any lower (i.e. at $1298.31$ppm) and the 3 $\sigma$ confidence interval begins to cross over the $\text{k}_{\text{eff}}>0.8$ threshold, i.e. there will be a larger than $0.0675 \%$ chance of its $\text{k}_{\text{eff}} >0.8$ (See Figure \ref{ConfInt}). See in table \ref{kvarTab} in the Appendices for more.
+
+\section{Conclusion}
+In Exercise 1 the fluence was observed to decrease with distance of the tallying surface, in line with the results predicted when taking into account the inverse-square law and the neutron absorbing ability of water. When using nps=2,800,000 to model a $10^{10} s^{-1}$ neutron source using a point source at 2cm above the centre of the internal base of the bath, the average fluxes on the base, the long sides, and the short sides of the tank were recorded as $(3.4488\pm0.00344882) \times 10^{7}, (7.6834 \pm 0.00768341)\times 10^{6}$, and $ (2.5094 \pm 0.00677549) \times 10^{6} cm^{-2} s^{-1}$; since, the fluence of these three tallies are given as $9656.7 \pm9.7  , 2151.4\pm2.2$, and $702.6\pm1.9$ neutrons $s^{-1}$ after 2,800,000 histories. The neutron spectra is also shown to have more thermalized neutron and fewer prompt, unmoderated neutrons when distance increases.
+
+This analysis is quite reliable due to its small relative error and passing of all statistical tests. However in reality it might deviate from the simulation since a true point source is difficult to introduce.
+
+In Exercise 3 the set-up was found to converge on $\text{k}_{\text{eff}} = 1.01798 \pm 0.00046$ when e=20\% after running 500 cycles of NSRCK=5000 particles, skipping the first 10. It shows decreasing error on the combined $\text{k}_{\text{eff}}$ as the simulation progresses; in order to keep $\text{k}_{\text{eff}} <0.8$ when e=25\%, $\ge 0.139804$ wt.\% boron should be added to the water, so that the 3 $\sigma$'s envelope for $\text{k}_{\text{eff}}$ is below 0.8, i.e. probability of $\text{k}_{\text{eff}}>0.8 $ is $ < 0.0675\% $. To be more precise, the value of k\textsubscript{eff} is given as $1.01798 \pm 0.00033$, obtained after running the simulation at an increased source particle per cycle of NSRCK=10000, skipping more cycles (IKZ=100) at the beginning, while keeping the number of cycles ran to be the same (KCT=500).
+
+One can be quite certain about the veracity of these simulations because sourcer particles were present in all fissile bodies, and the average combined k\textsubscript{eff} converged in an expected manner without noticable trend in the second half of the simulation. However, these simulations do not take into account the transmutation of elements, external sources of neutronns, and any other macroscopic effects which may perturb the distribution of materials inside the tank, so one has to be careful about these when applying these results to real life situations.
+
+\begin{appendices}
+\section{Figures}
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=5cm]{ConfidenceInterval.png}
-\caption{The $\text{k}_{\text{eff}}$ only remains below 0.8 at boron concentration $\approx$ $<14$ ppm.
+\caption{The $\text{k}_{\text{eff}}$ only remains below 0.8 at boron concentration $\approx$ $<1400$ ppm. The data used is tabulated in table \ref{kvarTab}
 }\label{ConfInt}
 \end{figure}
 
-\begin{appendices}
-
-\section{Figures}
 \begin{figure}[H]
 \centering
 \includegraphics[height=6.4cm]{Ex1CrxSx.png}
-\caption{The XZ and XY cross section of the bucket at the origin (z=0 and y=0 respectively)
+\caption{The XZ and XY cross section of the bucket at the origin (y=0 and z=0 respectively)
 }\label{Ex1CrxSx}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=6.4cm]{Ex3CrxSx.png}
-\caption{The XY and YZ cross section of the bucket at the origin (z=0 and y=0 respectively)
+\caption{The XY and YZ cross section of the bucket at the origin (z=0 and x=0 respectively)
 }\label{Ex3CrxSx}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3cm]{WattSpectrum.png}
+\includegraphics[height=3.7cm]{WattSpectrum.png}
 \caption{Watt Spectrum (f=-3) using the parameters a=0.988,b=2.249 for fission of ${}^{235}$U by thermal neutron;
 note the diminishing but non-zero probability of emission of high energy particles.
-The x y axes has units of MeV and MeV$^{-1}$ respectively
+The x y axes have units of MeV and MeV$^{-1}$ respectively
 }\label{Watt}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{SpectraHist.png}
+\caption{Probability of the passing particles falling into each of the 31 bins (which are evenly spaced on the log scale). y-axis of this graph is on log-scale.
+}\label{TalliesHistograms}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{SpectraHist_lin.png}
+\caption{Same as figure \ref{TalliesHistograms} above, but with linear y-axis scale.
+}\label{TalliesHistogramsLin}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=7.5cm]{Ex1TallyFluc.png}
+\caption{The mean and standard deviation on the mean retrieved from the tally fluctuation chart.
+}\label{Ex1TallyFluc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=6cm]{fomEx1.png}
+\caption{Flucation of Figure of Merit= $\frac{\text{histories}}{\text{minute}} (f(x)\text{signal-to-noise ratio})^2$ throughout the simulation.
+}\label{fomEx1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{keffvar.png}
+\caption{Plot of the average k\textsubscript{eff} obtained by various methods, and including the 1 $\sigma$ (66\%) confidence interval in the plot.
+Simulation completed using \texttt{KCODE 5000 1 10 500}
+}\label{keffvar}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=7cm]{sigmas.png}
+\caption{Variation of microscopic cross-section of all major isotopes that makes up the water and stainless steel wrt. energy, retrieved from [5].
+}\label{sigma}
 \end{figure}
 
 \section{Tables}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{cc}
-	${}^{1}_{1}$H  & 0.111894 \\
-	${}^{16}_{8}$O & 0.888106
+\begin{tabular}{c|cc|cc|cc|cc|cc}
+	                                & \multicolumn{2}{c}{water} & \multicolumn{2}{c}{stainless steel}&\multicolumn{2}{c}{concrete}&\multicolumn{2}{c}{U (e=20\%)}&\multicolumn{2}{c}{U (e=25\%)}\\
+	                                \hline
+	\multirow{4}{*}{wt. \%}			&${}^{1}_{1}$H	&11.1894	&${}^{nat}_{26}$Fe	&74		&${}^{16}_{8}$O		&53		&${}^{235}_{92}$U&20	&${}^{235}_{92}$U&25	\\
+									&${}^{16}_{8}$O	&88.8106	&${}^{nat}_{24}$Cr	&18		&${}^{nat}_{14}$Si	&34		&${}^{238}_{92}$U&80	&${}^{238}_{92}$U&75	\\
+									&				&			&${}^{nat}_{28}$Ni	&08		&${}^{nat}_{20}$Ca	&10		&						&				&		\\
+									&				&			&					&		&${}^{1}_{1}$H		&03		&						&				&		\\
+\hline	density						\\
+		$\rho$ (g/cc)				&	\multicolumn{2}{c}{1.00}&	\multicolumn{2}{c}{7.92}&	\multicolumn{2}{c}{2.30}&	\multicolumn{2}{c}{19.20}&	\multicolumn{2}{c}{19.20}\\
 \end{tabular}
-\caption{Isotopic compositions of pure water by weight fraction; density $\rho$=1.00g/cc, as given by [4]}\label{MaterialDef}
+\caption{Isotopic compositions and density of all materials used; data for water is given by [4]
+\\${}^{nat}$ refers to naturally occuring element's isotopic compositions.}\label{MaterialDef}
 \end{table}
-Need to insert table of
-\\* materials
-\\* (geometries?)
+
+% \begin{table}[H]
+% 	\centering
+% 	\begin{tabular}{cccc}
+% 		tally (surface(s)) & 12 (long sides) & 22 (short sides) & 32 (base)\\
+% 		average energy (keV) for nps=20,000  &609.969 & 99.755  & 726.59 \\
+% 		average energy (keV) for nps=2,800,000  &626.966 & 104.393 & 731.702
+% 	\end{tabular}
+% 	\caption{Arithmatic mean of the energy of neutrons recorded in the various tallies for the nps=20,000 and nps=2,800,000 simulations.
+% 	For comparison the Watt spectrum used reaches maximum emission probability density at 0.769 MeV (Figure \ref{Watt}).
+% 	}\label{Ex1meanE}
+% \end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|ccc}
+						   & 12 (long sides & 22 (short sides & 32 (base    \\
+		tally (surface(s)) &  of the tank) & of the tank) & of the tank)	\\
+		\hline
+		Flux (${cm}^{-2}s^{-1}$) extrapolated from \\
+		the 20,000 nps simulation & $7480000 \pm 90000$ & $2398000 \pm 8000$ & $34200000 \pm 400000$ \\
+		\hline
+		\textbf{Flux (${cm}^{-2}s^{-1}$) extrapolated from } \\
+		\textbf{the 2,800,000 nps simulation} & $7683000\pm7700$& $2509000\pm6800$ & $34490000\pm34000$ \\
+		\hline
+		Flux (${cm}^{-2}s^{-1}$) extrapolated from \\
+		the 18,000,000 nps simulation & $7681000\pm 3000$ & $2505000\pm 2800$ & $34560000\pm 14000$ 
+	\end{tabular}
+	\caption{Flux expected from a $10^{10} s^{-1}$ point source of neutron placed at the same location, predicted from the 20,000 neutrons, 2,800,000 neutrons, and 18,000,000 neutrons simulations respectively.
+	One can see that the result from Tally 32 converged to a stable value early on (in the nps=20,000 simulation); but the other two requires much more number of histories to reach their asymptotic limits. The 1\textsuperscript{st} bins of tallies 12 and 22 still have relative errors $>0.1$ after the nps=2,800,000 simulation; so in theory the values were not accurate enough yet; but as seen in the table, this contributed negligibly to the total fluence because so few particles can reach the 1\textsuperscript{st} bin of tallies 12 and 22; thus the predicted fluences contributed by thoes two bins do not differ much even after those two bins are forced to converge by sextupling the number of histories to nps=18,000,000.
+	}\label{Ex1FluxCalc}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|ccccccc} 
+		Boron concentration (wt.\%) & 0.129831 & 0.134982 & 0.139804 & 0.1499778 & 0.199601 & 0.266439 & 0.299910\\
+		\hline
+		k\textsubscript{eff}+3$\sigma$ &\textbf{0.80182} & \textbf{0.80003} & 0.79854 & 0.79532 & 0.78371 & 0.77298 & 0.76846 \\
+		k\textsubscript{eff}+2$\sigma$ &\textbf{0.8016} & 0.79982 & 0.79832 & 0.79506 & 0.78329 & 0.77253 & 0.76806 \\
+		k\textsubscript{eff}+1$\sigma$ &\textbf{0.80126} & 0.79949 & 0.79799 & 0.79467 & 0.78265 & 0.77185 & 0.76743 \\
+		k\textsubscript{eff}           &\textbf{0.80091} & 0.79916 & 0.79766 & 0.79427 & 0.78201 & 0.77117 & 0.76681 \\
+		k\textsubscript{eff}-1$\sigma$ &\textbf{0.80057} & 0.79883 & 0.79732 & 0.79387 & 0.78137 & 0.77048 & 0.76618 \\
+		k\textsubscript{eff}-2$\sigma$ &\textbf{0.80022} & 0.79851 & 0.79699 & 0.79347 & 0.78073 & 0.7698 & 0.76556 \\
+		k\textsubscript{eff}-3$\sigma$ &\textbf{0.80000} & 0.79829 & 0.79677 & 0.79322 & 0.78031 & 0.76935 & 0.76515 \\
+	\end{tabular}
+\caption{Variation in k\textsubscript{eff} wrt. boron concentration in water. All simulations were completed using \\ \texttt{KCODE 10000 1 100 500}
+}\label{kvarTab}
+\end{table}
 \section{References}
 \indent
 
@@ -264,6 +347,8 @@ Need to insert table of
 [3] MCNP4C2: Monte Carlo N-Particle Transport Code System Abstract (Diagnostics Applications Group, Los Alamos National Laboratory, Los Alamos, New Mexico.) p.2-180 (June 2001.)
 
 [4] Compendium of Material Composition Data for Radiation Transport Modeling (R.G. Williams III, C.J. Gesh, R.T. Pagh) p.111 (April 2006)
+
+[5] Brown, D., Sonzogni, A. and Pritychenko, B. (2011). Sigma Periodic Table Browse. [online] Nndc.bnl.gov. Available at: http://www.nndc.bnl.gov/sigma/index.jsp [Accessed 22 Apr. 2019].
 
 \end{appendices}
 
